@@ -3,9 +3,9 @@
 -- Project		: CPU Multi-ciclo
 --------------------------------------------------------------------------------
 -- File			: RegDesloc.vhd
--- Author		: Emannuel Gomes Macêdo <egm@cin.ufpe.br>
+-- Author		: Emannuel Gomes Macï¿½do <egm@cin.ufpe.br>
 --				  Fernando Raposo Camara da Silva <frcs@cin.ufpe.br>
---				  Pedro Machado Manhães de Castro <pmmc@cin.ufpe.br>
+--				  Pedro Machado Manhï¿½es de Castro <pmmc@cin.ufpe.br>
 --				  Rodrigo Alves Costa <rac2@cin.ufpe.br>
 -- Organization : Universidade Federal de Pernambuco
 -- Created		: 10/07/2002
@@ -16,24 +16,24 @@
 -- Targets		: 
 -- Dependency	: 
 --------------------------------------------------------------------------------
--- Description	: Entidade responsável pelo deslocamento de um vetor de 32 
+-- Description	: Entidade responsï¿½vel pelo deslocamento de um vetor de 32 
 --                bits para a direita e para a esquerda. 
 --				  Entradas:
 --				  	* N: vetor de 5 bits que indica a quantidade de 
 --					deslocamentos   
---				  	* Shift: vetor de 3 bits que indica a função a ser 
+--				  	* Shift: vetor de 3 bits que indica a funï¿½ï¿½o a ser 
 --					realizada pelo registrador   
---				  Abaixo seguem os valores referentes à entrada shift e as 
---                respectivas funções do registrador: 
+--				  Abaixo seguem os valores referentes ï¿½ entrada shift e as 
+--                respectivas funï¿½ï¿½es do registrador: 
 --				  
---				  Shift					FUNÇÃO DO REGISTRADOR
+--				  Shift					FUNï¿½ï¿½O DO REGISTRADOR
 --				  000					faz nada
 --				  001					carrega vetor (sem deslocamentos)
---				  010					deslocamento à esquerda n vezes
---				  011					deslocamento à direita lógico n vezes
---				  100					deslocamento à direita aritmético n vezes
---				  101					rotação à direita n vezes
---				  110					rotação à esquerda n vezes
+--				  010					deslocamento ï¿½ esquerda n vezes
+--				  011					deslocamento ï¿½ direita lï¿½gico n vezes
+--				  100					deslocamento ï¿½ direita aritmï¿½tico n vezes
+--				  101					rotaï¿½ï¿½o ï¿½ direita n vezes
+--				  110					rotaï¿½ï¿½o ï¿½ esquerda n vezes
 --------------------------------------------------------------------------------
 -- Copyright (c) notice
 --		Universidade Federal de Pernambuco (UFPE).
@@ -56,8 +56,8 @@
 -- Revision Number	: 1.2
 -- Version			: 1.3
 -- Date				: 08/08/2008
--- Modifier			: João Paulo Fernandes Barbosa (jpfb@cin.ufpe.br)
--- Description		: Os sinais de entrada e saída passam a ser do tipo std_logic.
+-- Modifier			: Joï¿½o Paulo Fernandes Barbosa (jpfb@cin.ufpe.br)
+-- Description		: Os sinais de entrada e saï¿½da passam a ser do tipo std_logic.
 --------------------------------------------------------------------------------
 
 LIBRARY IEEE;
@@ -71,7 +71,7 @@ ENTITY RegDesloc IS
 		PORT(
 			Clk		: IN	STD_LOGIC;	-- Clock do sistema
 		 	Reset	: IN	STD_LOGIC;	-- Reset
-			Shift 	: IN	STD_LOGIC_vector (2 downto 0);	-- Função a ser realizada pelo registrador 
+			Shift 	: IN	STD_LOGIC_vector (2 downto 0);	-- Funï¿½ï¿½o a ser realizada pelo registrador 
 			N		: IN	STD_LOGIC_vector (4 downto 0);	-- Quantidade de deslocamentos
 			Entrada : IN	STD_LOGIC_vector (31 downto 0);	-- Vetor a ser deslocado
 			Saida	: OUT	STD_LOGIC_vector (31 downto 0)	-- Vetor deslocado
@@ -82,7 +82,7 @@ END RegDesloc;
 -- Simulation
 ARCHITECTURE behavioral_arch OF RegDesloc IS
 	
-	signal temp		: STD_LOGIC_vector (31 downto 0);	-- Vetor temporário
+	signal temp		: STD_LOGIC_vector (31 downto 0);	-- Vetor temporï¿½rio
 	
 	begin
 
@@ -96,34 +96,34 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 				case Shift is
 					when "000" => 						-- Faz nada
 						temp <= temp;
-					when "001" => 						-- Carrega vetor de entrada, não faz deslocamentos
+					when "001" => 						-- Carrega vetor de entrada, nï¿½o faz deslocamentos
 						temp <= Entrada;
-					when "010" =>						-- Deslocamento à esquerda N vezes
+					when "010" =>						-- Deslocamento ï¿½ esquerda N vezes
 						case N is
-							when "00000" =>				-- Deslocamento à esquerda nenhuma vez
+							when "00000" =>				-- Deslocamento ï¿½ esquerda nenhuma vez
 								temp <= temp;
-							when "00001" =>				-- Deslocamento à esquerda 1 vez
+							when "00001" =>				-- Deslocamento ï¿½ esquerda 1 vez
 								temp(0) <= '0';
 								temp(31 downto 1) <= temp(30 downto 0);
-							when "00010" =>				-- Deslocamento à esquerda 2 vezes
+							when "00010" =>				-- Deslocamento ï¿½ esquerda 2 vezes
 								temp(1 downto 0) <= "00";
 								temp(31 downto 2) <= temp(29 downto 0);
-							when "00011" =>				-- Deslocamento à esquerda 3 vezes
+							when "00011" =>				-- Deslocamento ï¿½ esquerda 3 vezes
 								temp(2 downto 0) <= "000";
 								temp(31 downto 3) <= temp(28 downto 0);
-							when "00100" =>				-- Deslocamento à esquerda 4 vezes
+							when "00100" =>				-- Deslocamento ï¿½ esquerda 4 vezes
 								temp(3 downto 0) <= "0000";
 								temp(31 downto 4) <= temp(27 downto 0);
-							when "00101" =>				-- Deslocamento à esquerda 5 vezes
+							when "00101" =>				-- Deslocamento ï¿½ esquerda 5 vezes
 								temp(4 downto 0) <= "00000";
 								temp(31 downto 5) <= temp(26 downto 0);
-							when "00110" =>				-- Deslocamento à esquerda 6 vezes
+							when "00110" =>				-- Deslocamento ï¿½ esquerda 6 vezes
 								temp(5 downto 0) <= "000000";
 								temp(31 downto 6) <= temp(25 downto 0);
-							when "00111" =>				-- Deslocamento à esquerda 7 vezes
+							when "00111" =>				-- Deslocamento ï¿½ esquerda 7 vezes
 								temp(6 downto 0) <= "0000000";
 								temp(31 downto 7) <= temp(24 downto 0);
-                                                        when "01000" =>                         -- e assim sucessivamente...
+                            when "01000" =>                         -- e assim sucessivamente...
 								temp(7 downto 0) <= "00000000";
 								temp(31 downto 8) <= temp(23 downto 0);
 							when "01001" =>
@@ -198,137 +198,137 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 							
 							end case;
 
-					-- Deslocamento à direita lógico N vezes
+					-- Deslocamento ï¿½ direita lï¿½gico N vezes
 					when "011" =>						
 						case n is
-							when "00000" =>				-- Deslocamento à direita lógico nenhuma vez
+							when "00000" =>				-- Deslocamento ï¿½ direita lï¿½gico nenhuma vez
 								temp <= temp;
-							when "00001" =>				-- Deslocamento à direita lógico 1 vez
+							when "00001" =>				-- Deslocamento ï¿½ direita lï¿½gico 1 vez
 								temp(30 downto 0) <= temp(31 downto 1);
 								temp(31) <= '0';
-							when "00010" =>				-- Deslocamento à direita lógico 2 vezes
+							when "00010" =>				-- Deslocamento ï¿½ direita lï¿½gico 2 vezes
 								temp(29 downto 0) <= temp(31 downto 2);
 								temp(31 downto 30) <= "00";
-							when "00011" =>				-- Deslocamento à direita lógico 3 vezes
+							when "00011" =>				-- Deslocamento ï¿½ direita lï¿½gico 3 vezes
 								temp(28 downto 0) <= temp(31 downto 3);
 								temp(31 downto 29) <= "000";
-							when "00100" =>				-- Deslocamento à direita lógico 4 vezes
+							when "00100" =>				-- Deslocamento ï¿½ direita lï¿½gico 4 vezes
 								temp(27 downto 0) <= temp(31 downto 4);
 								temp(31 downto 28) <= "0000";
-							when "00101" =>				-- Deslocamento à direita lógico 5 vezes
+							when "00101" =>				-- Deslocamento ï¿½ direita lï¿½gico 5 vezes
 								temp(26 downto 0) <= temp(31 downto 5);
 								temp(31 downto 27) <= "00000";
-							when "00110" =>				-- Deslocamento à direita lógico 6 vezes
+							when "00110" =>				-- Deslocamento ï¿½ direita lï¿½gico 6 vezes
 								temp(25 downto 0) <= temp(31 downto 6);
 								temp(31 downto 26) <= "000000";
-							when "00111" =>				-- Deslocamento à direita lógico 7 vezes
+							when "00111" =>				-- Deslocamento ï¿½ direita lï¿½gico 7 vezes
 								temp(24 downto 0) <= temp(31 downto 7);
 								temp(31 downto 25) <= "0000000";
-							when "01000" =>				-- Deslocamento à direita lógico 8 vezes
+							when "01000" =>				-- Deslocamento ï¿½ direita lï¿½gico 8 vezes
 								temp(23 downto 0) <= temp(31 downto 8);
 								temp(31 downto 24) <= "00000000";
-							when "01001" =>				-- Deslocamento à direita lógico 9 vezes
+							when "01001" =>				-- Deslocamento ï¿½ direita lï¿½gico 9 vezes
 								temp(22 downto 0) <= temp(31 downto 9);
 								temp(31 downto 23) <= "000000000";
-							when "01010" =>				-- Deslocamento à direita lógico 10 vezes
+							when "01010" =>				-- Deslocamento ï¿½ direita lï¿½gico 10 vezes
 								temp(21 downto 0) <= temp(31 downto 10);
 								temp(31 downto 22) <= "0000000000";
-							when "01011" =>				-- Deslocamento à direita lógico 11 vezes
+							when "01011" =>				-- Deslocamento ï¿½ direita lï¿½gico 11 vezes
 								temp(20 downto 0) <= temp(31 downto 11);
 								temp(31 downto 21) <= "00000000000";
-							when "01100" =>				-- Deslocamento à direita lógico 12 vezes
+							when "01100" =>				-- Deslocamento ï¿½ direita lï¿½gico 12 vezes
 								temp(19 downto 0) <= temp(31 downto 12);
 								temp(31 downto 20) <= "000000000000";
-							when "01101" =>				-- Deslocamento à direita lógico 13 vezes
+							when "01101" =>				-- Deslocamento ï¿½ direita lï¿½gico 13 vezes
 								temp(18 downto 0) <= temp(31 downto 13);
 								temp(31 downto 19) <= "0000000000000";
-							when "01110" =>				-- Deslocamento à direita lógico 14 vezes
+							when "01110" =>				-- Deslocamento ï¿½ direita lï¿½gico 14 vezes
 								temp(17 downto 0) <= temp(31 downto 14);
 								temp(31 downto 18) <= "00000000000000";
-							when "01111" =>				-- Deslocamento à direita lógico 15 vezes
+							when "01111" =>				-- Deslocamento ï¿½ direita lï¿½gico 15 vezes
 								temp(16 downto 0) <= temp(31 downto 15);
 								temp(31 downto 17) <= "000000000000000";
-							when "10000" =>				-- Deslocamento à direita lógico 16 vezes
+							when "10000" =>				-- Deslocamento ï¿½ direita lï¿½gico 16 vezes
 								temp(15 downto 0) <= temp(31 downto 16);
 								temp(31 downto 16) <= "0000000000000000";
-							when "10001" =>				-- Deslocamento à direita lógico 17 vezes
+							when "10001" =>				-- Deslocamento ï¿½ direita lï¿½gico 17 vezes
 								temp(14 downto 0) <= temp(31 downto 17);
 								temp(31 downto 15) <= "00000000000000000";
-							when "10010" =>				-- Deslocamento à direita lógico 18 vezes
+							when "10010" =>				-- Deslocamento ï¿½ direita lï¿½gico 18 vezes
 								temp(13 downto 0) <= temp(31 downto 18);
 								temp(31 downto 14) <= "000000000000000000";
-							when "10011" =>				-- Deslocamento à direita lógico 19 vezes
+							when "10011" =>				-- Deslocamento ï¿½ direita lï¿½gico 19 vezes
 								temp(12 downto 0) <= temp(31 downto 19);
 								temp(31 downto 13) <= "0000000000000000000";
-							when "10100" =>				-- Deslocamento à direita lógico 20 vezes
+							when "10100" =>				-- Deslocamento ï¿½ direita lï¿½gico 20 vezes
 								temp(11 downto 0) <= temp(31 downto 20);
 								temp(31 downto 12) <= "00000000000000000000";
-							when "10101" =>				-- Deslocamento à direita lógico 21 vezes
+							when "10101" =>				-- Deslocamento ï¿½ direita lï¿½gico 21 vezes
 								temp(10 downto 0) <= temp(31 downto 21);
 								temp(31 downto 11) <= "000000000000000000000";
-							when "10110" =>				-- Deslocamento à direita lógico 22 vezes
+							when "10110" =>				-- Deslocamento ï¿½ direita lï¿½gico 22 vezes
 								temp(9 downto 0) <= temp(31 downto 22);
 								temp(31 downto 10) <= "0000000000000000000000";
-							when "10111" =>				-- Deslocamento à direita lógico 23 vezes
+							when "10111" =>				-- Deslocamento ï¿½ direita lï¿½gico 23 vezes
 								temp(8 downto 0) <= temp(31 downto 23);
 								temp(31 downto 9) <= "00000000000000000000000";
-							when "11000" =>				-- Deslocamento à direita lógico 24 vezes
+							when "11000" =>				-- Deslocamento ï¿½ direita lï¿½gico 24 vezes
 								temp(7 downto 0) <= temp(31 downto 24);
 								temp(31 downto 8) <= "000000000000000000000000";
-							when "11001" =>				-- Deslocamento à direita lógico 25 vezes
+							when "11001" =>				-- Deslocamento ï¿½ direita lï¿½gico 25 vezes
 								temp(6 downto 0) <= temp(31 downto 25);
 								temp(31 downto 7) <= "0000000000000000000000000";
-							when "11010" =>				-- Deslocamento à direita lógico 26 vezes
+							when "11010" =>				-- Deslocamento ï¿½ direita lï¿½gico 26 vezes
 								temp(5 downto 0) <= temp(31 downto 26);
 								temp(31 downto 6) <= "00000000000000000000000000";
-							when "11011" =>				-- Deslocamento à direita lógico 27 vezes
+							when "11011" =>				-- Deslocamento ï¿½ direita lï¿½gico 27 vezes
 								temp(4 downto 0) <= temp(31 downto 27);
 								temp(31 downto 5) <= "000000000000000000000000000";
-							when "11100" =>				-- Deslocamento à direita lógico 28 vezes
+							when "11100" =>				-- Deslocamento ï¿½ direita lï¿½gico 28 vezes
 								temp(3 downto 0) <= temp(31 downto 28);
 								temp(31 downto 4) <= "0000000000000000000000000000";
-							when "11101" =>				-- Deslocamento à direita lógico 29 vezes
+							when "11101" =>				-- Deslocamento ï¿½ direita lï¿½gico 29 vezes
 								temp(2 downto 0) <= temp(31 downto 29);
 								temp(31 downto 3) <= "00000000000000000000000000000";
-							when "11110" =>				-- Deslocamento à direita lógico 30 vezes
+							when "11110" =>				-- Deslocamento ï¿½ direita lï¿½gico 30 vezes
 								temp(1 downto 0) <= temp(31 downto 30);
 								temp(31 downto 2) <= "000000000000000000000000000000";
-							when "11111" =>				-- Deslocamento à direita lógico 31 vezes
+							when "11111" =>				-- Deslocamento ï¿½ direita lï¿½gico 31 vezes
 								temp(0) <= temp(31);
 								temp(31 downto 1) <= "0000000000000000000000000000000";
 						end case;
 
-					-- Deslocamento à direita aritmético N vezes
+					-- Deslocamento ï¿½ direita aritmï¿½tico N vezes
 					when "100" =>						
 						case n is
-							when "00000" =>				-- Deslocamento à direita aritmético nenhuma vez
+							when "00000" =>				-- Deslocamento ï¿½ direita aritmï¿½tico nenhuma vez
 								temp <= temp;
-							when "00001" =>				-- Deslocamento à direita aritmético 1 vezes
+							when "00001" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 1 vezes
 								temp(30 downto 0) <= temp(31 downto 1);
 								temp(31) <= temp(31);
-							when "00010" =>				-- Deslocamento à direita aritmético 2 vezes
+							when "00010" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 2 vezes
 								temp(29 downto 0) <= temp(31 downto 2);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "00011" =>				-- Deslocamento à direita aritmético 3 vezes
+							when "00011" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 3 vezes
 								temp(28 downto 0) <= temp(31 downto 3);
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "00100" =>				-- Deslocamento à direita aritmético 4 vezes
+							when "00100" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 4 vezes
 								temp(27 downto 0) <= temp(31 downto 4);
 								temp(28) <= temp(31);
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "00101" =>				-- Deslocamento à direita aritmético 5 vezes
+							when "00101" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 5 vezes
 								temp(26 downto 0) <= temp(31 downto 5);
 								temp(27) <= temp(31);
 								temp(28) <= temp(31);
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "00110" =>				-- Deslocamento à direita aritmético 6 vezes
+							when "00110" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 6 vezes
 								temp(25 downto 0) <= temp(31 downto 6);
 								temp(26) <= temp(31);
 								temp(27) <= temp(31);
@@ -336,7 +336,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "00111" =>				-- Deslocamento à direita aritmético 7 vezes
+							when "00111" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 7 vezes
 								temp(24 downto 0) <= temp(31 downto 7);
 								temp(25) <= temp(31);
 								temp(26) <= temp(31);
@@ -345,7 +345,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "01000" =>				-- Deslocamento à direita aritmético 8 vezes
+							when "01000" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 8 vezes
 								temp(23 downto 0) <= temp(31 downto 8);
 								temp(24) <= temp(31);
 								temp(25) <= temp(31);
@@ -355,7 +355,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "01001" =>				-- Deslocamento à direita aritmético 9 vezes
+							when "01001" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 9 vezes
 								temp(22 downto 0) <= temp(31 downto 9);
 								temp(23) <= temp(31);
 								temp(24) <= temp(31);
@@ -366,7 +366,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "01010" =>				-- Deslocamento à direita aritmético 10 vezes
+							when "01010" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 10 vezes
 								temp(21 downto 0) <= temp(31 downto 10);
 								temp(22) <= temp(31);
 								temp(23) <= temp(31);
@@ -378,7 +378,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "01011" =>				-- Deslocamento à direita aritmético 11 vezes
+							when "01011" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 11 vezes
 								temp(20 downto 0) <= temp(31 downto 11);
 								temp(21) <= temp(31);
 								temp(22) <= temp(31);
@@ -391,7 +391,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "01100" =>				-- Deslocamento à direita aritmético 12 vezes
+							when "01100" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 12 vezes
 								temp(19 downto 0) <= temp(31 downto 12);
 								temp(20) <= temp(31);
 								temp(21) <= temp(31);
@@ -405,7 +405,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "01101" =>				-- Deslocamento à direita aritmético 13 vezes
+							when "01101" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 13 vezes
 								temp(18 downto 0) <= temp(31 downto 13);
 								temp(19) <= temp(31);
 								temp(20) <= temp(31);
@@ -420,7 +420,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "01110" =>				-- Deslocamento à direita aritmético 14 vezes
+							when "01110" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 14 vezes
 								temp(17 downto 0) <= temp(31 downto 14);
 								temp(18) <= temp(31);
 								temp(19) <= temp(31);
@@ -436,7 +436,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "01111" =>				-- Deslocamento à direita aritmético 15 vezes
+							when "01111" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 15 vezes
 								temp(16 downto 0) <= temp(31 downto 15);
 								temp(17) <= temp(31);
 								temp(18) <= temp(31);
@@ -454,7 +454,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
 
-							when "10000" =>				-- Deslocamento à direita aritmético 16 vezes
+							when "10000" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 16 vezes
 								temp(15 downto 0) <= temp(31 downto 16);
 								temp(16) <= temp(31);
 								temp(17) <= temp(31);
@@ -472,7 +472,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "10001" =>				-- Deslocamento à direita aritmético 17 vezes
+							when "10001" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 17 vezes
 								temp(14 downto 0) <= temp(31 downto 17);
 								temp(15) <= temp(31);
 								temp(16) <= temp(31);
@@ -491,7 +491,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "10010" =>				-- Deslocamento à direita aritmético 18 vezes
+							when "10010" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 18 vezes
 								temp(13 downto 0) <= temp(31 downto 18);
 								temp(14) <= temp(31);
 								temp(15) <= temp(31);
@@ -511,7 +511,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "10011" =>				-- Deslocamento à direita aritmético 19 vezes
+							when "10011" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 19 vezes
 								temp(12 downto 0) <= temp(31 downto 19);
 								temp(13) <= temp(31);
 								temp(14) <= temp(31);
@@ -532,7 +532,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "10100" =>				-- Deslocamento à direita aritmético 20 vezes
+							when "10100" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 20 vezes
 								temp(11 downto 0) <= temp(31 downto 20);
 								temp(12) <= temp(31);
 								temp(13) <= temp(31);
@@ -554,7 +554,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "10101" =>				-- Deslocamento à direita aritmético 21 vezes
+							when "10101" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 21 vezes
 								temp(10 downto 0) <= temp(31 downto 21);
 								temp(11) <= temp(31);
 								temp(12) <= temp(31);
@@ -577,7 +577,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "10110" =>				-- Deslocamento à direita aritmético 22 vezes
+							when "10110" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 22 vezes
 								temp(9 downto 0) <= temp(31 downto 22);
 								temp(10) <= temp(31);
 								temp(11) <= temp(31);
@@ -601,7 +601,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "10111" =>				-- Deslocamento à direita aritmético 23 vezes
+							when "10111" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 23 vezes
 								temp(8 downto 0) <= temp(31 downto 23);
 								temp(9) <= temp(31);
 								temp(10) <= temp(31);				
@@ -626,7 +626,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "11000" =>				-- Deslocamento à direita aritmético 24 vezes
+							when "11000" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 24 vezes
 								temp(7 downto 0) <= temp(31 downto 24);
 								temp(8) <= temp(31);
 								temp(9) <= temp(31);
@@ -652,7 +652,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "11001" =>				-- Deslocamento à direita aritmético 25 vezes
+							when "11001" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 25 vezes
 								temp(6 downto 0) <= temp(31 downto 25);
 								temp(7) <= temp(31);
 								temp(8) <= temp(31);
@@ -679,7 +679,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "11010" =>				-- Deslocamento à direita aritmético 26 vezes
+							when "11010" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 26 vezes
 								temp(5 downto 0) <= temp(31 downto 26);
 								temp(6) <= temp(31);
 								temp(7) <= temp(31);
@@ -707,7 +707,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "11011" =>				-- Deslocamento à direita aritmético 27 vezes
+							when "11011" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 27 vezes
 								temp(4 downto 0) <= temp(31 downto 27);
 								temp(5) <= temp(31);
 								temp(6) <= temp(31);
@@ -736,7 +736,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "11100" =>				-- Deslocamento à direita aritmético 28 vezes
+							when "11100" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 28 vezes
 								temp(3 downto 0) <= temp(31 downto 28);
 								temp(4) <= temp(31);
 								temp(5) <= temp(31);
@@ -766,7 +766,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "11101" =>				-- Deslocamento à direita aritmético 29 vezes
+							when "11101" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 29 vezes
 								temp(2 downto 0) <= temp(31 downto 29);
 								temp(3) <= temp(31);
 								temp(4) <= temp(31);
@@ -797,7 +797,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "11110" =>				-- Deslocamento à direita aritmético 30 vezes
+							when "11110" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 30 vezes
 								temp(1 downto 0) <= temp(31 downto 30);
 								temp(2) <= temp(31);
 								temp(3) <= temp(31);
@@ -829,7 +829,7 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(29) <= temp(31);
 								temp(30) <= temp(31);
 								temp(31) <= temp(31);
-							when "11111" =>				-- Deslocamento à direita aritmético 31 vezes
+							when "11111" =>				-- Deslocamento ï¿½ direita aritmï¿½tico 31 vezes
 								temp(0) <= temp(31);
 								temp(1) <= temp(31);
 								temp(2) <= temp(31);
@@ -864,207 +864,207 @@ ARCHITECTURE behavioral_arch OF RegDesloc IS
 								temp(31) <= temp(31);
 						end case;
 
-					-- Rotação à direita N vezes
+					-- Rotaï¿½ï¿½o ï¿½ direita N vezes
 					when "101" =>						
 						case n is
-							when "00000" =>				-- Rotação à direita nenhuma vez
+							when "00000" =>				-- Rotaï¿½ï¿½o ï¿½ direita nenhuma vez
 								temp <= temp;
-							when "00001" =>				-- Rotação à direita 1 vez
+							when "00001" =>				-- Rotaï¿½ï¿½o ï¿½ direita 1 vez
 								temp(30 downto 0) <= temp(31 downto 1);
 								temp(31) <= temp(0);
-							when "00010" =>				-- Rotação à direita 2 vezes
+							when "00010" =>				-- Rotaï¿½ï¿½o ï¿½ direita 2 vezes
 								temp(29 downto 0) <= temp(31 downto 2);
 								temp(31 downto 30) <= temp(1 downto 0);
-							when "00011" =>				-- Rotação à direita 3 vezes
+							when "00011" =>				-- Rotaï¿½ï¿½o ï¿½ direita 3 vezes
 								temp(28 downto 0) <= temp(31 downto 3);
 								temp(31 downto 29) <= temp(2 downto 0);
-							when "00100" =>				-- Rotação à direita 4 vezes
+							when "00100" =>				-- Rotaï¿½ï¿½o ï¿½ direita 4 vezes
 								temp(27 downto 0) <= temp(31 downto 4);
 								temp(31 downto 28) <= temp(3 downto 0);
-							when "00101" =>				-- Rotação à direita 5 vezes
+							when "00101" =>				-- Rotaï¿½ï¿½o ï¿½ direita 5 vezes
 								temp(26 downto 0) <= temp(31 downto 5);
 								temp(31 downto 27) <= temp(4 downto 0);
-							when "00110" =>				-- Rotação à direita 6 vezes
+							when "00110" =>				-- Rotaï¿½ï¿½o ï¿½ direita 6 vezes
 								temp(25 downto 0) <= temp(31 downto 6);
 								temp(31 downto 26) <= temp(5 downto 0);
-							when "00111" =>				-- Rotação à direita 7 vezes
+							when "00111" =>				-- Rotaï¿½ï¿½o ï¿½ direita 7 vezes
 								temp(24 downto 0) <= temp(31 downto 7);
 								temp(31 downto 25) <= temp(6 downto 0);
-							when "01000" =>				-- Rotação à direita 8 vezes
+							when "01000" =>				-- Rotaï¿½ï¿½o ï¿½ direita 8 vezes
 								temp(23 downto 0) <= temp(31 downto 8);
 								temp(31 downto 24) <= temp(7 downto 0);
-							when "01001" =>				-- Rotação à direita 9 vezes
+							when "01001" =>				-- Rotaï¿½ï¿½o ï¿½ direita 9 vezes
 								temp(22 downto 0) <= temp(31 downto 9);
 								temp(31 downto 23) <= temp(8 downto 0);
-							when "01010" =>				-- Rotação à direita 10 vezes
+							when "01010" =>				-- Rotaï¿½ï¿½o ï¿½ direita 10 vezes
 								temp(21 downto 0) <= temp(31 downto 10);
 								temp(31 downto 22) <= temp(9 downto 0);
-							when "01011" =>				-- Rotação à direita 11 vezes
+							when "01011" =>				-- Rotaï¿½ï¿½o ï¿½ direita 11 vezes
 								temp(20 downto 0) <= temp(31 downto 11);
 								temp(31 downto 21) <= temp(10 downto 0);
-							when "01100" =>				-- Rotação à direita 12 vezes
+							when "01100" =>				-- Rotaï¿½ï¿½o ï¿½ direita 12 vezes
 								temp(19 downto 0) <= temp(31 downto 12);
 								temp(31 downto 20) <= temp(11 downto 0);
-							when "01101" =>				-- Rotação à direita 13 vezes
+							when "01101" =>				-- Rotaï¿½ï¿½o ï¿½ direita 13 vezes
 								temp(18 downto 0) <= temp(31 downto 13);
 								temp(31 downto 19) <= temp(12 downto 0);
-							when "01110" =>				-- Rotação à direita 14 vezes
+							when "01110" =>				-- Rotaï¿½ï¿½o ï¿½ direita 14 vezes
 								temp(17 downto 0) <= temp(31 downto 14);
 								temp(31 downto 18) <= temp(13 downto 0);
-							when "01111" =>				-- Rotação à direita 15 vezes
+							when "01111" =>				-- Rotaï¿½ï¿½o ï¿½ direita 15 vezes
 								temp(16 downto 0) <= temp(31 downto 15);
 								temp(31 downto 17) <= temp(14 downto 0);
-							when "10000" =>				-- Rotação à direita 16 vezes
+							when "10000" =>				-- Rotaï¿½ï¿½o ï¿½ direita 16 vezes
 								temp(15 downto 0) <= temp(31 downto 16);
 								temp(31 downto 16) <= temp(15 downto 0);
-							when "10001" =>				-- Rotação à direita 17 vezes
+							when "10001" =>				-- Rotaï¿½ï¿½o ï¿½ direita 17 vezes
 								temp(14 downto 0) <= temp(31 downto 17);
 								temp(31 downto 15) <= temp(16 downto 0);
-							when "10010" =>				-- Rotação à direita 18 vezes
+							when "10010" =>				-- Rotaï¿½ï¿½o ï¿½ direita 18 vezes
 								temp(13 downto 0) <= temp(31 downto 18);
 								temp(31 downto 14) <= temp(17 downto 0);
-							when "10011" =>				-- Rotação à direita 19 vezes
+							when "10011" =>				-- Rotaï¿½ï¿½o ï¿½ direita 19 vezes
 								temp(12 downto 0) <= temp(31 downto 19);
 								temp(31 downto 13) <= temp(18 downto 0);
-							when "10100" =>				-- Rotação à direita 20 vezes
+							when "10100" =>				-- Rotaï¿½ï¿½o ï¿½ direita 20 vezes
 								temp(11 downto 0) <= temp(31 downto 20);
 								temp(31 downto 12) <= temp(19 downto 0);
-							when "10101" =>				-- Rotação à direita 21 vezes
+							when "10101" =>				-- Rotaï¿½ï¿½o ï¿½ direita 21 vezes
 								temp(10 downto 0) <= temp(31 downto 21);
 								temp(31 downto 11) <= temp(20 downto 0);
-							when "10110" =>				-- Rotação à direita 22 vezes
+							when "10110" =>				-- Rotaï¿½ï¿½o ï¿½ direita 22 vezes
 								temp(9 downto 0) <= temp(31 downto 22);
 								temp(31 downto 10) <= temp(21 downto 0);
-							when "10111" =>				-- Rotação à direita 23 vezes
+							when "10111" =>				-- Rotaï¿½ï¿½o ï¿½ direita 23 vezes
 								temp(8 downto 0) <= temp(31 downto 23);
 								temp(31 downto 9) <= temp(22 downto 0);
-							when "11000" =>				-- Rotação à direita 24 vezes
+							when "11000" =>				-- Rotaï¿½ï¿½o ï¿½ direita 24 vezes
 								temp(7 downto 0) <= temp(31 downto 24);
 								temp(31 downto 8) <= temp(23 downto 0);
-							when "11001" =>				-- Rotação à direita 25 vezes
+							when "11001" =>				-- Rotaï¿½ï¿½o ï¿½ direita 25 vezes
 								temp(6 downto 0) <= temp(31 downto 25);
 								temp(31 downto 7) <= temp(24 downto 0);
-							when "11010" =>				-- Rotação à direita 26 vezes
+							when "11010" =>				-- Rotaï¿½ï¿½o ï¿½ direita 26 vezes
 								temp(5 downto 0) <= temp(31 downto 26);
 								temp(31 downto 6) <= temp(25 downto 0);
-							when "11011" =>				-- Rotação à direita 27 vezes
+							when "11011" =>				-- Rotaï¿½ï¿½o ï¿½ direita 27 vezes
 								temp(4 downto 0) <= temp(31 downto 27);
 								temp(31 downto 5) <= temp(26 downto 0);
-							when "11100" =>				-- Rotação à direita 28 vezes
+							when "11100" =>				-- Rotaï¿½ï¿½o ï¿½ direita 28 vezes
 								temp(3 downto 0) <= temp(31 downto 28);
 								temp(31 downto 4) <= temp(27 downto 0);
-							when "11101" =>				-- Rotação à direita 29 vezes
+							when "11101" =>				-- Rotaï¿½ï¿½o ï¿½ direita 29 vezes
 								temp(2 downto 0) <= temp(31 downto 29);
 								temp(31 downto 3) <= temp(28 downto 0);
-							when "11110" =>				-- Rotação à direita 30 vezes
+							when "11110" =>				-- Rotaï¿½ï¿½o ï¿½ direita 30 vezes
 								temp(1 downto 0) <= temp(31 downto 30);
 								temp(31 downto 2) <= temp(29 downto 0);
-							when "11111" =>				-- Rotação à direita 31 vezes
+							when "11111" =>				-- Rotaï¿½ï¿½o ï¿½ direita 31 vezes
 								temp(0) <= temp(31);
 								temp(31 downto 1) <= temp(30 downto 0);
 						end case;
 
-					-- Rotação à esquerda N vezes
+					-- Rotaï¿½ï¿½o ï¿½ esquerda N vezes
 					when "110" =>						
 						case n is
-							when "00000" =>				-- Rotação à esquerda nenhuma vez
+							when "00000" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda nenhuma vez
 								temp <= temp;
-							when "00001" =>				-- Rotação à esquerda 1 vez
+							when "00001" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 1 vez
 								temp(0) <= temp(31);
 								temp(31 downto 1) <= temp(30 downto 0);
-							when "00010" =>				-- Rotação à esquerda 2 vezes
+							when "00010" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 2 vezes
 								temp(1 downto 0) <= temp(31 downto 30);
 								temp(31 downto 2) <= temp(29 downto 0);
-							when "00011" =>				-- Rotação à esquerda 3 vezes
+							when "00011" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 3 vezes
 								temp(2 downto 0) <= temp(31 downto 29);
 								temp(31 downto 3) <= temp(28 downto 0);
-							when "00100" =>				-- Rotação à esquerda 4 vezes
+							when "00100" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 4 vezes
 								temp(3 downto 0) <= temp(31 downto 28);
 								temp(31 downto 4) <= temp(27 downto 0);
-							when "00101" =>				-- Rotação à esquerda 5 vezes
+							when "00101" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 5 vezes
 								temp(4 downto 0) <= temp(31 downto 27);
 								temp(31 downto 5) <= temp(26 downto 0);
-							when "00110" =>				-- Rotação à esquerda 6 vezes
+							when "00110" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 6 vezes
 								temp(5 downto 0) <= temp(31 downto 26);
 								temp(31 downto 6) <= temp(25 downto 0);
-							when "00111" =>				-- Rotação à esquerda 7 vezes
+							when "00111" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 7 vezes
 								temp(6 downto 0) <= temp(31 downto 25);
 								temp(31 downto 7) <= temp(24 downto 0);
-							when "01000" =>				-- Rotação à esquerda 8 vezes
+							when "01000" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 8 vezes
 								temp(7 downto 0) <= temp(31 downto 24);
 								temp(31 downto 8) <= temp(23 downto 0);
-							when "01001" =>				-- Rotação à esquerda 9 vezes
+							when "01001" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 9 vezes
 								temp(8 downto 0) <= temp(31 downto 23);
 								temp(31 downto 9) <= temp(22 downto 0);
-							when "01010" =>				-- Rotação à esquerda 10 vezes
+							when "01010" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 10 vezes
 								temp(9 downto 0) <= temp(31 downto 22);
 								temp(31 downto 10) <= temp(21 downto 0);
-							when "01011" =>				-- Rotação à esquerda 11 vezes
+							when "01011" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 11 vezes
 								temp(10 downto 0) <= temp(31 downto 21);
 								temp(31 downto 11) <= temp(20 downto 0);
-							when "01100" =>				-- Rotação à esquerda 12 vezes
+							when "01100" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 12 vezes
 								temp(11 downto 0) <= temp(31 downto 20);
 								temp(31 downto 12) <= temp(19 downto 0);
-							when "01101" =>				-- Rotação à esquerda 13 vezes
+							when "01101" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 13 vezes
 								temp(12 downto 0) <= temp(31 downto 19);
 								temp(31 downto 13) <= temp(18 downto 0);
-							when "01110" =>				-- Rotação à esquerda 14 vezes
+							when "01110" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 14 vezes
 								temp(13 downto 0) <= temp(31 downto 18);
 								temp(31 downto 14) <= temp(17 downto 0);
-							when "01111" =>				-- Rotação à esquerda 15 vezes
+							when "01111" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 15 vezes
 								temp(14 downto 0) <= temp(31 downto 17);
 								temp(31 downto 15) <= temp(16 downto 0);
-							when "10000" =>				-- Rotação à esquerda 16 vezes
+							when "10000" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 16 vezes
 								temp(15 downto 0) <= temp(31 downto 16);
 								temp(31 downto 16) <= temp(15 downto 0);
-							when "10001" =>				-- Rotação à esquerda 17 vezes
+							when "10001" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 17 vezes
 								temp(16 downto 0) <= temp(31 downto 15);
 								temp(31 downto 17) <= temp(14 downto 0);
-							when "10010" =>				-- Rotação à esquerda 18 vezes
+							when "10010" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 18 vezes
 								temp(17 downto 0) <= temp(31 downto 14);
 								temp(31 downto 18) <= temp(13 downto 0);
-							when "10011" =>				-- Rotação à esquerda 19 vezes
+							when "10011" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 19 vezes
 								temp(18 downto 0) <= temp(31 downto 13);
 								temp(31 downto 19) <= temp(12 downto 0);
-							when "10100" =>				-- Rotação à esquerda 20 vezes
+							when "10100" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 20 vezes
 								temp(19 downto 0) <= temp(31 downto 12);
 								temp(31 downto 20) <= temp(11 downto 0);
-							when "10101" =>				-- Rotação à esquerda 21 vezes
+							when "10101" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 21 vezes
 								temp(20 downto 0) <= temp(31 downto 11);
 								temp(31 downto 21) <= temp(10 downto 0);
-							when "10110" =>				-- Rotação à esquerda 22 vezes
+							when "10110" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 22 vezes
 								temp(21 downto 0) <= temp(31 downto 10);
 								temp(31 downto 22) <= temp(9 downto 0);
-							when "10111" =>				-- Rotação à esquerda 23 vezes
+							when "10111" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 23 vezes
 								temp(22 downto 0) <= temp(31 downto 9);
 								temp(31 downto 23) <= temp(8 downto 0);
-							when "11000" =>				-- Rotação à esquerda 24 vezes
+							when "11000" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 24 vezes
 								temp(23 downto 0) <= temp(31 downto 8);
 								temp(31 downto 24) <= temp(7 downto 0);
-							when "11001" =>				-- Rotação à esquerda 25 vezes
+							when "11001" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 25 vezes
 								temp(24 downto 0) <= temp(31 downto 7);
 								temp(31 downto 25) <= temp(6 downto 0);
-							when "11010" =>				-- Rotação à esquerda 26 vezes
+							when "11010" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 26 vezes
 								temp(25 downto 0) <= temp(31 downto 6);
 								temp(31 downto 26) <= temp(5 downto 0);
-							when "11011" =>				-- Rotação à esquerda 27 vezes
+							when "11011" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 27 vezes
 								temp(26 downto 0) <= temp(31 downto 5);
 								temp(31 downto 27) <= temp(4 downto 0);
-							when "11100" =>				-- Rotação à esquerda 28 vezes
+							when "11100" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 28 vezes
 								temp(27 downto 0) <= temp(31 downto 4);
 								temp(31 downto 28) <= temp(3 downto 0);
-							when "11101" =>				-- Rotação à esquerda 29 vezes
+							when "11101" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 29 vezes
 								temp(28 downto 0) <= temp(31 downto 3);
 								temp(31 downto 29) <= temp(2 downto 0);
-							when "11110" =>				-- Rotação à esquerda 30 vezes
+							when "11110" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 30 vezes
 								temp(29 downto 0) <= temp(31 downto 2);
 								temp(31 downto 30) <= temp(1 downto 0);
-							when "11111" =>				-- Rotação à esquerda 31 vezes
+							when "11111" =>				-- Rotaï¿½ï¿½o ï¿½ esquerda 31 vezes
 								temp(30 downto 0) <= temp(31 downto 1);
 								temp(31) <= temp(0);
 						end case;
 
-					-- Funcionalidade não definida
+					-- Funcionalidade nï¿½o definida
 					when others =>
 					-- Faz nada					
 				end case;
