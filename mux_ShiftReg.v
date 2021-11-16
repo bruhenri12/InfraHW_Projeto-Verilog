@@ -1,4 +1,4 @@
-module mux_PCSrc(Out,Sel,In0,In1,In2); 
+module mux_ShiftReg(Out,Sel,In0,In1,In2); 
 
 input [31:0] In0,In1,In2; //entradas de 32 bits
 input [1:0] Sel; //seletor de 3 bits
