@@ -1,9 +1,9 @@
 //ALUSrcA, ALUOSrc
 module mux_2x1_1_1(Out,Sel,In0,In1); 
 
-input In0,In1; //entradas de 32 bits
+input In0,In1; //entradas de 1 bits
 input Sel; //seletor de 1 bit
-output Out; //saida de 32 bits
+output Out; //saida de 1 bits
 
 reg Out; 
 
