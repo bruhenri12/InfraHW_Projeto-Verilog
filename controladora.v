@@ -18,8 +18,8 @@ module controladora (
      * Sáb nov 2 às 15:38 - Cauê: E lá vamos nós.
     */
 
-    parameter add_funct  = 5'h20,
-              and_funct  = 5'h24,
+    parameter add_funct  = 5'd32,
+              and_funct  = 5'd36,
               div_funct  = 5'h1a,
               mult_funct = 5'h18,
               jr_funct   = 5'h8,
@@ -216,7 +216,7 @@ module controladora (
                 MemRead_Write  <= 0;
                 ALUSrcA        <= 0;
                 ALUSrcB        <= 1;
-                ALUOp          <= 010;
+                ALUOp          <= 3'b010;
                 EPCWrite       <= 1;
                 // next state
                 next_state <= 12;
