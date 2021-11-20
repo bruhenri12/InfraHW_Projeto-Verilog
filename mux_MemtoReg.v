@@ -8,7 +8,7 @@ reg [31:0] Out;
 reg [31:0] In7;
 
 initial begin
-    In2[31:0] = 32'b00000000000000000000000011100011; // 227
+    In7[31:0] = 32'b00000000000000000000000011100011; // 227
 end
 
 //Check the state of the input lines 

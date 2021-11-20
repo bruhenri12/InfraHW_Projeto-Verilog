@@ -1,12 +1,12 @@
 module controladora (
-    input wire clk, Overflow, reset
-    input wire [5:0] opcode, funct
-    output wire PCWriteCond, PCWrite, EQorNE, GTorLT, WDSrc, MemRead_Write, IRWrite,
+    input wire clk, Overflow, reset,
+    input wire [5:0] opcode, funct,
+    output reg PCWriteCond, PCWrite, EQorNE, GTorLT, WDSrc, MemRead_Write, IRWrite,
                 RegWrite, RegALoad, RegBLoad, ALUSrcA, EPCWrite, ALUOSrc, ALUOutWrite,
-                GLtMux, TwoBytes, Store, DivOrM, HiLoSrc, HiLoWrite, MDRLoad
-    output wire [1:0] RegDst, ALUSrcB, ShiftQnt, ShiftReg,
-    output wire [2:0] IorD, ALUOp, PCSrc, ShiftType,
-    output wire [3:0] MemtoReg
+                GLtMux, TwoBytes, Store, DivOrM, HiLoSrc, HiLoWrite, MDRLoad,
+    output reg [1:0] RegDst, ALUSrcB, ShiftQnt, ShiftReg,
+    output reg [2:0] IorD, ALUOp, PCSrc, ShiftType,
+    output reg [3:0] MemtoReg
 );
     
     /*
@@ -20,10 +20,8 @@ module controladora (
               div_funct  = 5'h1a,
               mult_funct = 5'h18,
               jr_funct   = 5'h8,
-              // ...
               addi_op    = 5'h8,
               addiu_op   = 5'h9,
-              // ...
               op0        = 5'h0;
 
     reg [6:0] state, next_state;
@@ -54,7 +52,7 @@ module controladora (
                 // output
                 PCWrite <= 1;
                 IorD    <= 0;
-                MemRead <= 1;
+                MemRead_Write <= 1;
                 ALUSrcA <= 0;
                 ALUSrcB <= 1;
                 PCSrc   <= 0;
@@ -66,7 +64,7 @@ module controladora (
             2: begin
                 // output
                 PCWrite <= 0;
-                MemRead <= 0;
+                MemRead_Write <= 0;
                 // next state
                 next_state <= 3;
             end
@@ -102,7 +100,7 @@ module controladora (
                 // output
                 ALUSrcA     <= 1;
                 ALUSrcB     <= 0;
-                ALUOP       <= 1;
+                ALUOp       <= 1;
                 ALUOSrc     <= 0;
                 ALUOutWrite <= 1;
                 // next state
@@ -131,7 +129,7 @@ module controladora (
                 ALUOp       <= 3'b010;
                 EPCWrite    <= 1;
                 IorD        <= 3;
-                MemRead     <= 1;
+                MemRead_Write     <= 1;
                 // next state
                 next_state <= 12;
             end
@@ -139,7 +137,7 @@ module controladora (
             11: begin: OPCODE_INEXISTENTE
                 // output
                 IorD     <= 2;
-                MemRead  <= 1;
+                MemRead_Write  <= 1;
                 ALUSrcA  <= 0;
                 ALUSrcB  <= 1;
                 ALUOp    <= 010;
@@ -151,7 +149,7 @@ module controladora (
             12: begin: TRATAMENTO_DE_EXCECAO_PADRAO
                 // output
                 EPCWrite <= 0;
-                MemRead  <= 0;
+                MemRead_Write  <= 0;
                 // next state
                 next_state <= 13;
             end

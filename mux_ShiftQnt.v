@@ -1,13 +1,14 @@
-module mux_ShiftQnt(Out,Sel,In0,In1,In2,In3); 
+module mux_ShiftQnt(Out,Sel,In0,In1,In3); 
 
-input [4:0] In0,In1,In2,In3; //entradas de 32 bits
+input [4:0] In0,In1,In3; //entradas de 32 bits
 input [1:0] Sel; //seletor de 3 bits
 output [4:0] Out; //saida de 32 bits
 
 reg [4:0] Out; 
+reg [4:0] In2;
 
 initial begin
-    In2[31:0] = 5'b10000; // 16
+    In2[4:0] = 5'b10000; // 16
 end
 
 //Check the state of the input lines 

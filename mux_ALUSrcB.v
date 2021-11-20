@@ -5,6 +5,7 @@ input [1:0] Sel; //seletor de 2 bits
 output [31:0] Out; //saida de 32 bits
 
 reg [31:0] Out; 
+reg [31:0] In1;
 
 initial begin
     In1[31:0] = 32'b00000000000000000000000000000100; // 4

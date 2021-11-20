@@ -1,25 +1,3 @@
-`include "../mux_2x1_1_1.v"
-`include "../mux_2x1_32_32.v"
-`include "../mux_IorD.v"
-`include "../mux_RegDst.v"
-`include "../mux_ALUSrcB.v"
-`include "../mux_MemtoReg.v"
-`include "../mux_PCSrc.v"
-`include "../mux_ShiftQnt.v"
-`include "../mux_ShiftReg.v"
-`include "../pc_sel.v"
-`include "../SignExtended_16_32.v"
-`include "../SignExtended_1_32.v"
-`include "../overwrite_block.v"
-`include "../componentes/Banco_reg.vhd"
-`include "../componentes/Instr_Reg.vhd"
-`include "../componentes/Memoria.vhd"
-`include "../componentes/Registrador.vhd"
-`include "../componentes/Ula32.vhd"
-`include "../componentes/RegDesloc.vhd"
-`include "../componentes/shift_left_2.vhd"
-
-
 module CPU(
     input wire clk, rst
 );
@@ -37,7 +15,7 @@ module CPU(
     //Instruction Register
     wire IRWrite;
     wire [4:0] IR25_21_Out, IR20_16_Out;
-    wire [5:0] IR32_26_Out;
+    wire [5:0] Opcode, Funct;
     wire [15:0] Imediato;
     //Banco de Registers
     wire RegWrite;
@@ -50,15 +28,15 @@ module CPU(
     wire RegALoad, RegBLoad;
     wire [31:0] RegA_Out, RegB_Out;
     //ULA
-    wire ALUSrcA;
+    wire ALUSrcA, Overflow;
     wire [1:0] ALUSrcB;
     wire [2:0] ALUOp;
-    wire [31:0] ALUSrcA_Out, ALUSrcB_Out, Imediato, Imedato_L2_Out, ImediatoExt;
+    wire [31:0] ALUSrcA_Out, ALUSrcB_Out, Imedato_L2_Out, ImediatoExt;
     //PC
-    wire ALUOSrc, GLtMux, Lt, Gt, GLtMux_Out, ALUOutLoad, EPCWrite, EQorNE, GTorLT, EQorNE_Out, GTorLT_Out, PCLoad;
+    wire ALUOSrc, GLtMux, Lt, Gt, GLtMux_Out, ALUOutWrite, EPCWrite, EQorNE, GTorLT, EQorNE_Out, GTorLT_Out, PCLoad;
     wire [2:0] PCSrc;
     wire [25:0] IR25_0_Out;
-    wire [31:0] ALUOSrc_Out, IR25_0_Out_L2_Out, EPC_Out, PCSrc_Out, GLtMuxExt;
+    wire [31:0] ALUOSrc_Out, ShiftLeft_26_28_Out, ShiftLeft_PC, EPC_Out, PCSrc_Out, GLtMuxExt;
 
     //Shifter
     wire [1:0] ShiftQnt, ShiftReg;
@@ -70,11 +48,24 @@ module CPU(
     wire Store, TwoBytes;
     wire [31:0] Store1_Out, Store2_Out, Store_Zero, OW_Out;
     
+    //Div, Mult hi, lo
+    wire DivZero, HiLoWrite, DivOrM, HiLoSrc;
+    
     assign Store_Zero = 32'd0;
-    assign IR15_11 <= Imediato[15:11];
-    assign MDR4_0_Out <= MDR_Out[4:0];
-    assign shamt <= Imediato[10:6];
-    assign RegB4_0_Out <= RegB_Out[4:0];
+    assign Funct = Imediato[5:0];
+    assign IR15_11 = Imediato[15:11];
+    assign MDR4_0_Out = MDR_Out[4:0];
+    assign shamt = Imediato[10:6];
+    assign RegB4_0_Out = RegB_Out[4:0];
+
+    //Controladora
+    controladora Control(clk, Overflow, rst, Opcode, Funct, PCWriteCond, 
+                        PCWrite, EQorNE, GTorLT, WDSrc, MemRead_Write, IRWrite,
+                        RegWrite, RegALoad, RegBLoad, ALUSrcA, EPCWrite, ALUOSrc, 
+                        ALUOutWrite, GLtMux, TwoBytes, Store, DivOrM, HiLoSrc, 
+                        HiLoWrite, MDR, RegDst, ALUSrcB, ShiftQnt, ShiftReg, IorD,
+                        ALUOp, PCSrc, ShiftType, MemtoReg);
+
 
     //Conjuntos de blocos:
     //Memoria
@@ -88,7 +79,7 @@ module CPU(
     Registrador MemoryDataRegister(clk, rst, MDR, Mem_Out, MDR_Out);
     
     //Instruction Register
-    Instr_Reg Instruction_Register(clk, rst, IRWrite, Mem_Out, IR32_26_Out, 
+    Instr_Reg Instruction_Register(clk, rst, IRWrite, Mem_Out, Opcode, 
                                    IR25_21_Out, IR20_16_Out, Imediato);
 
     //Banco de Registradores
@@ -118,7 +109,7 @@ module CPU(
 
     
     //ALUOut
-    Registrador ALUOut(clk, rst, ALUOutLoad, ALUOSrc_Out, ALUOut_Out);
+    Registrador ALUOut(clk, rst, ALUOutWrite, ALUOSrc_Out, ALUOut_Out);
     
     //PC
     mux_2x1_1_1 Mux_GLtMux(GLtMux_Out, GLtMux, Lt, Gt); 
@@ -128,15 +119,16 @@ module CPU(
     mux_2x1_32_32 Mux_ALUOSrc(ALUOSrc_Out, ALUOSrc, ALUResult_Out, GLtMuxExt);
 
     Registrador EPC(clk, rst, EPCWrite, ALUResult_Out, EPC_Out);
-    
-    shift_left_2 IR25_0_Out_L2(clk, rst, IR25_0_Out, IR25_0_Out_L2_Out); //IR25_0_Out_L2_Out concatena com PC_Out[31..28]
 
-    //Concatena aqui
-    //coloca os nomes lá em cima
-    assign IR25_0_Out_L2_Out_concatenado_PC_Out31__28 = {IR25_0_Out_L2_Out,PC_Out}
-    //@bruno qual a ordem da concatenação
-    // vo no banheiro rapidão(10 min)
-    mux_PCSrc Mux_PCSrc(PCSrc_Out, PCSrc, ALUResult_Out, ALUOut_Out, IR25_0_Out_L2_Out, OW_Out, EPC_Out);
+    //concatena(25..21+20..16+15..0)
+    assign IR25_0_Out = {{IR25_21_Out,IR20_16_Out},Imediato};
+    
+    shift_left26_28 ShiftLeft_26_28(IR25_0_Out, ShiftLeft_26_28_Out);
+    
+    //concatena(31..28+27..0)
+    assign ShiftLeft_PC = {PC_Out[31:28], ShiftLeft_26_28_Out};
+
+    mux_PCSrc Mux_PCSrc(PCSrc_Out, PCSrc, ALUResult_Out, ALUOut_Out, ShiftLeft_26_28_Out, OW_Out, EPC_Out);
     
     pc_sel PCSel(Zero, Gt, PCWrite, PCWriteCond, EQorNE, GTorLT, PCLoad);
 
@@ -158,14 +150,8 @@ module CPU(
 
     overwrite_block OverwriteBlock(Store1_Out, Store2_Out, TwoBytes, OW_Out);
 
+    //DIV,MULT,HI,LO
+    //Aqui..............
+
 
 endmodule
-
-//Auxiliares
-
-//Div, hi, lo
-//wire DivZero, HiLoWrite,
-
-//Multiplexadores:
-//1bit
-//wire DivOrM, HiLoSrc;

@@ -5,6 +5,6 @@ module overwrite_block(
 
     assign result = two_bytes ?
                     {written[31:16], writer[15:0]} :
-                    {written[31:8], writer[7:0]}
+                    {written[31:8], writer[7:0]};
 
 endmodule
