@@ -15,7 +15,7 @@ module controladora (
      * eduardo: rs
      *
      *
-     * sáb nov 20 - 
+     * Sáb nov 2 às 15:38 - Cauê: E lá vamos nós.
     */
 
     parameter add_funct  = 5'h20,

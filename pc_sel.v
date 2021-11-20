@@ -12,8 +12,8 @@ module pc_sel (
     mux_2x1_1_1 Mux_EQorNE(EQorNE_Out, EQorNE, Zero, notZero); 
     mux_2x1_1_1 Mux_GTorLT(GTorLT_Out, GTorLT, Gt, notGt); 
 
-    assign rZeroGt = EQorNE_Out | GTorLT_Out;
-    assign rAux = rZeroGt & PCWriteCond;
-    assign Out = rAux | PCWrite;
+    assign rZeroGt = EQorNE_Out || GTorLT_Out;
+    assign rAux = rZeroGt && PCWriteCond;
+    assign Out = rAux || PCWrite;
     
 endmodule
