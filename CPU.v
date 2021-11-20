@@ -36,7 +36,8 @@ module CPU(
     wire ALUOSrc, GLtMux, Lt, Gt, GLtMux_Out, ALUOutWrite, EPCWrite, EQorNE, GTorLT, EQorNE_Out, GTorLT_Out, PCLoad;
     wire [2:0] PCSrc;
     wire [25:0] IR25_0_Out;
-    wire [31:0] ALUOSrc_Out, ShiftLeft_26_28_Out, ShiftLeft_PC, EPC_Out, PCSrc_Out, GLtMuxExt;
+    wire [27:0] ShiftLeft_26_28_Out;
+    wire [31:0] ALUOSrc_Out, ShiftLeft_PC, EPC_Out, PCSrc_Out, GLtMuxExt;
 
     //Shifter
     wire [1:0] ShiftQnt, ShiftReg;
@@ -128,7 +129,7 @@ module CPU(
     //concatena(31..28+27..0)
     assign ShiftLeft_PC = {PC_Out[31:28], ShiftLeft_26_28_Out};
 
-    mux_PCSrc Mux_PCSrc(PCSrc_Out, PCSrc, ALUResult_Out, ALUOut_Out, ShiftLeft_26_28_Out, OW_Out, EPC_Out);
+    mux_PCSrc Mux_PCSrc(PCSrc_Out, PCSrc, ALUResult_Out, ALUOut_Out, ShiftLeft_PC, OW_Out, EPC_Out);
     
     pc_sel PCSel(Zero, Gt, PCWrite, PCWriteCond, EQorNE, GTorLT, PCLoad);
 
