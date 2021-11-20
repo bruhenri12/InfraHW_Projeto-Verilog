@@ -45,74 +45,75 @@ module controladora (
     always @(posedge clk) begin: OUTPUT_LOGIC_AND_NEXT_STATE_LOGIC
         case (state)
             0: begin: RESET
-                PCWriteCond   = 0;
-                PCWrite       = 0;
-                EQorNE        = 0;
-                GTorLT        = 0;
-                WDSrc         = 0;
-                MemRead_Write = 0;
-                IRWrite       = 0;
-                //RegWrite     = 0;
-                RegALoad      = 0;
-                RegBLoad      = 0;
-                ALUSrcA       = 0;
-                EPCWrite      = 0;
-                ALUOSrc       = 0;
-                ALUOutWrite   = 0;
-                GLtMux        = 0;
-                TwoBytes      = 0;
-                Store         = 0;
-                DivOrM        = 0;
-                HiLoSrc       = 0;
-                HiLoWrite     = 0;
-                MDRLoad       = 0;
-                //RegDst       = 0;
-                ALUSrcB       = 0;
-                ShiftQnt      = 0;
-                ShiftReg      = 0;
-                IorD          = 0;
-                ALUOp         = 0;
-                PCSrc         = 0;
-                ShiftType     = 0;
-                //MemtoReg      = 0;
+                PCWriteCond   <= 0;
+                PCWrite       <= 0;
+                EQorNE        <= 0;
+                GTorLT        <= 0;
+                WDSrc         <= 0;
+                MemRead_Write <= 0;
+                IRWrite       <= 0;
+                //RegWrite      <= 0;
+                RegALoad      <= 0;
+                RegBLoad      <= 0;
+                ALUSrcA       <= 0;
+                EPCWrite      <= 0;
+                ALUOSrc       <= 0;
+                ALUOutWrite   <= 0;
+                GLtMux        <= 0;
+                TwoBytes      <= 0;
+                Store         <= 0;
+                DivOrM        <= 0;
+                HiLoSrc       <= 0;
+                HiLoWrite     <= 0;
+                MDRLoad       <= 0;
+                //RegDst        <= 0;
+                ALUSrcB       <= 0;
+                ShiftQnt      <= 0;
+                ShiftReg      <= 0;
+                IorD          <= 0;
+                ALUOp         <= 0;
+                PCSrc         <= 0;
+                ShiftType     <= 0;
+                //MemtoReg      <= 0;
                 // output
-                RegDst   = 2'b11;
-                MemtoReg = 4'b0111;
-                RegWrite = 1;
+                RegDst   <= 2;
+                MemtoReg <= 4'b0111;
+                RegWrite <= 1;
                 // next state
                 next_state = 1;
             end
 
             1: begin: START
-                PCWriteCond   = 0;
-                //PCWrite       = 0;
-                EQorNE        = 0;
-                GTorLT        = 0;
-                WDSrc         = 0;
-                //MemRead_Write = 0;
-                IRWrite       = 0;
-                RegWrite      = 0;
-                RegALoad      = 0;
-                RegBLoad      = 0;
-                //ALUSrcA       = 0;
-                EPCWrite      = 0;
-                ALUOSrc       = 0;
-                ALUOutWrite   = 0;
-                GLtMux        = 0;
-                TwoBytes      = 0;
-                Store         = 0;
-                DivOrM        = 0;
-                HiLoSrc       = 0;
-                HiLoWrite     = 0;
-                MDRLoad       = 0;
-                RegDst        = 0;
-                //ALUSrcB       = 0;
-                ShiftQnt      = 0;
-                //IorD          = 0;
-                //ALUOp         = 0;
-                //PCSrc         = 0;
-                ShiftType     = 0;
-                MemtoReg      = 0;
+                PCWriteCond   <= 0;
+                //PCWrite       <= 0;
+                EQorNE        <= 0;
+                GTorLT        <= 0;
+                WDSrc         <= 0;
+                //MemRead_Write <= 0;
+                IRWrite       <= 0;
+                RegWrite      <= 0;
+                RegALoad      <= 0;
+                RegBLoad      <= 0;
+                //ALUSrcA       <= 0;
+                EPCWrite      <= 0;
+                ALUOSrc       <= 0;
+                ALUOutWrite   <= 0;
+                GLtMux        <= 0;
+                TwoBytes      <= 0;
+                Store         <= 0;
+                DivOrM        <= 0;
+                HiLoSrc       <= 0;
+                HiLoWrite     <= 0;
+                MDRLoad       <= 0;
+                RegDst        <= 0;
+                //ALUSrcB       <= 0;
+                ShiftQnt      <= 0;
+                ShiftReg      <= 0;
+                //IorD          <= 0;
+                //ALUOp         <= 0;
+                //PCSrc         <= 0;
+                ShiftType     <= 0;
+                MemtoReg      <= 0;
                 // output
                 PCWrite = 1;
                 IorD    = 0;
@@ -171,9 +172,9 @@ module controladora (
                 if(Overflow)
                     next_state = 7;  // overflow
                 else if(opcode == op0 && funct == add_funct)
-                    next_state = 6;  // add
+                    next_state <= 6;  // add
                 else if(opcode == addi_op)
-                    next_state = 8;  // addiu
+                    next_state <= 8;  // addiu
                 // else if ...
             end
 
@@ -208,6 +209,16 @@ module controladora (
                 RegWrite    = 1;
                 // next_state
                 next_state = 1; // start
+            end
+
+            8: begin: END_OF_ADDI
+                // output
+                ALUOutWrite <= 0;
+                MemtoReg    <= 0;
+                RegDst      <= 0;
+                RegWrite    <= 1;
+                // next_state
+                next_state <= 1; // start
             end
 
             11: begin: OPCODE_INEXISTENTE
