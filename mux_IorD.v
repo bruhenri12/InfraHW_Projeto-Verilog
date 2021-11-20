@@ -5,12 +5,12 @@ input [2:0] Sel; //seletor de 3 bits
 output [31:0] Out; //saida de 32 bits
 
 reg [31:0] Out; 
-reg [7:0] In2,In3,In4; //entradas de 8 bits
+reg [31:0] In2,In3,In4; //entradas de 32 bits
 
 initial begin
-    In2[7:0] = 8'b11111101; // 253
-    In3[7:0] = 8'b11111110; // 254
-    In4[7:0] = 8'b11111111; // 255
+    In2[31:0] = 32'd253; // 253
+    In3[31:0] = 32'd254; // 254
+    In4[31:0] = 32'd255; // 255
 end
 
 //Check the state of the input lines 
