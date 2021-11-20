@@ -108,7 +108,6 @@ module controladora (
                 RegDst        = 0;
                 //ALUSrcB       = 0;
                 ShiftQnt      = 0;
-                ShiftReg      = 0;
                 //IorD          = 0;
                 //ALUOp         = 0;
                 //PCSrc         = 0;
