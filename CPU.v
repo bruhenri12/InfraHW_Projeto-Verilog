@@ -20,16 +20,8 @@
 
 
 module CPU(
-    //Inputs
     input wire clk, Overflow,
     input wire [31:0] instruction,
-    //Outputs
-    output wire rst, PCWriteCond, PCWrite, EQorNE, GTorLT, WDSrc, MemRead_Write, IRWrite,
-    output wire RegWrite, RegALoad, RegBLoad, ALUSrcA, EPCWrite, ALUOSrc, ALUOutLoad,
-    output wire GLtMux, TwoBytes, Store, DivOrM, HiLoSrc, HiLoWrite,
-    output wire [1:0] RegDst, ALUSrcB, ShiftQnt, ShiftReg,
-    output wire [2:0] IorD, ALUOp, PCSrc, ShiftType,
-    output wire [3:0] MemtoReg
 );
     //Blocos:
     //Gerais
@@ -39,6 +31,9 @@ module CPU(
     wire MemRead_Write, WDSrc;
     wire [2:0] IorD;
     wire [31:0] IorD_Out, WDSrc_Out, Mem_Out;
+    //Memory Data Register
+    wire MDR;
+    wire [31:0] MDR_Out;
     //Instruction Register
     wire IRWrite;
     wire [4:0] IR25_21_Out, IR20_16_Out;
@@ -50,7 +45,7 @@ module CPU(
     wire [3:0] MemtoReg;
     wire [4:0] RegDst_Out, IR15_11;
     wire [31:0] Banco_reg_Out1, Banco_reg_Out2;
-    wire [31:0] MemtoReg_Out, Shifter_Out, Hi_Out, Lo_Out, PC_Out, ALUResult_Out, ALUOut_Out, MDR_Out, OW_Out;
+    wire [31:0] MemtoReg_Out, Shifter_Out, Hi_Out, Lo_Out, PC_Out, ALUResult_Out, ALUOut_Out, OW_Out;
     //Registradores
     wire RegALoad, RegBLoad;
     wire [31:0] RegA_Out, RegB_Out;
@@ -70,7 +65,12 @@ module CPU(
     wire [2:0] ShiftType;
     wire [4:0] MDR4_0_Out, shamt, RegB4_0_Out, ShiftQnt_Out;
     wire [31:0] ShiftReg_Out; 
+
+    //Overwrite Block
+    wire Store;
+    wire [31:0] Store1_Out, Store2_Out, Store_Zero;
     
+    assign Store_Zero = 32'd0;
     assign IR15_11 <= Imediato[15:11];
     assign MDR4_0_Out <= MDR_Out[4:0];
     assign shamt <= Imediato[10:6];
@@ -83,6 +83,9 @@ module CPU(
     mux_2x1_32_32 Mux_WDSrc(WDSrc_Out, WDSrc, RegB_Out, OW_Out);
 
     Memoria Memory(IorD_Out, clk, MemRead_Write, WDSrc_Out, Mem_Out);
+
+    //Memory Data Register
+    Registrador MemoryDataRegister(clk, rst, MDR, Mem_Out, MDR_Out);
     
     //Instruction Register
     Instr_Reg Instruction_Register(clk, rst, IRWrite, Mem_Out, IR32_26_Out, 
@@ -128,6 +131,8 @@ module CPU(
     
     shift_left_2 IR25_0_Out_L2(clk, rst, IR25_0_Out, IR25_0_Out_L2_Out); //IR25_0_Out_L2_Out concatena com PC_Out[31..28]
 
+    //Concatena aqui
+
     mux_PCSrc Mux_PCSrc(PCSrc_Out, PCSrc, ALUResult_Out, ALUOut_Out, IR25_0_Out_L2_Out, OW_Out, EPC_Out);
     
     pc_sel PCSel(Zero, Gt, PCWrite, PCWriteCond, EQorNE, GTorLT, PCLoad);
@@ -141,6 +146,13 @@ module CPU(
     mux_ShiftReg Mux_ShiftReg(ShiftReg_Out, ShiftReg, ImediatoExt, RegA_Out, RegB_Out);
 
     RegDesloc Shifter(clk, rst, ShiftType, ShiftQnt_Out, ShiftReg_Out, Shifter_Out);
+
+    //Overwrite Block
+
+    mux_2x1_32_32 Mux_Store1(Store1_Out, Store, Store_Zero, MDR_Out);
+
+    mux_2x1_32_32 Mux_Store2(Store2_Out, Store, MDR_Out, RegB_Out);
+
 
 endmodule
 
