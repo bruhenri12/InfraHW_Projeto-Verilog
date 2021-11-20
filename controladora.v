@@ -131,18 +131,19 @@ module controladora (
                 IRWrite       = 1;
                 PCWrite       = 0;
                 // next state
-                next_state    = 3;
+                next_state    = 4;
             end
 
             3: begin
                 // output
-                IRWrite    = 0;
+                IRWrite    = 1;
                 // next state
                 next_state = 4;
             end
 
             4: begin: END_OF_CICLOS_COMUNS
                 // output
+                IRWrite     = 0;
                 ALUSrcA     = 0;
                 ALUSrcB     = 3;
                 ALUOp       = 1;
