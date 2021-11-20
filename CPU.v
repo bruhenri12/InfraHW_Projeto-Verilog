@@ -10,6 +10,7 @@
 `include "../pc_sel.v"
 `include "../SignExtended_16_32.v"
 `include "../SignExtended_1_32.v"
+`include "../overwrite_block.v"
 `include "../componentes/Banco_reg.vhd"
 `include "../componentes/Instr_Reg.vhd"
 `include "../componentes/Memoria.vhd"
@@ -20,12 +21,11 @@
 
 
 module CPU(
-    input wire clk, Overflow,
-    input wire [31:0] instruction,
+    input wire clk, rst
 );
     //Blocos:
     //Gerais
-    wire rst, PCWriteCond, PCWrite;
+    wire PCWriteCond, PCWrite;
     wire [31:0] Shift_L2_Out;
     //Memoria
     wire MemRead_Write, WDSrc;
@@ -45,7 +45,7 @@ module CPU(
     wire [3:0] MemtoReg;
     wire [4:0] RegDst_Out, IR15_11;
     wire [31:0] Banco_reg_Out1, Banco_reg_Out2;
-    wire [31:0] MemtoReg_Out, Shifter_Out, Hi_Out, Lo_Out, PC_Out, ALUResult_Out, ALUOut_Out, OW_Out;
+    wire [31:0] MemtoReg_Out, Shifter_Out, Hi_Out, Lo_Out, PC_Out, ALUResult_Out, ALUOut_Out;
     //Registradores
     wire RegALoad, RegBLoad;
     wire [31:0] RegA_Out, RegB_Out;
@@ -67,8 +67,8 @@ module CPU(
     wire [31:0] ShiftReg_Out; 
 
     //Overwrite Block
-    wire Store;
-    wire [31:0] Store1_Out, Store2_Out, Store_Zero;
+    wire Store, TwoBytes;
+    wire [31:0] Store1_Out, Store2_Out, Store_Zero, OW_Out;
     
     assign Store_Zero = 32'd0;
     assign IR15_11 <= Imediato[15:11];
@@ -132,7 +132,10 @@ module CPU(
     shift_left_2 IR25_0_Out_L2(clk, rst, IR25_0_Out, IR25_0_Out_L2_Out); //IR25_0_Out_L2_Out concatena com PC_Out[31..28]
 
     //Concatena aqui
-
+    //coloca os nomes lá em cima
+    assign IR25_0_Out_L2_Out_concatenado_PC_Out31__28 = {IR25_0_Out_L2_Out,PC_Out}
+    //@bruno qual a ordem da concatenação
+    // vo no banheiro rapidão(10 min)
     mux_PCSrc Mux_PCSrc(PCSrc_Out, PCSrc, ALUResult_Out, ALUOut_Out, IR25_0_Out_L2_Out, OW_Out, EPC_Out);
     
     pc_sel PCSel(Zero, Gt, PCWrite, PCWriteCond, EQorNE, GTorLT, PCLoad);
@@ -153,13 +156,12 @@ module CPU(
 
     mux_2x1_32_32 Mux_Store2(Store2_Out, Store, MDR_Out, RegB_Out);
 
+    overwrite_block OverwriteBlock(Store1_Out, Store2_Out, TwoBytes, OW_Out);
+
 
 endmodule
 
 //Auxiliares
-
-//Overwrite Block
-//wire TwoBytes,
 
 //Div, hi, lo
 //wire DivZero, HiLoWrite,
