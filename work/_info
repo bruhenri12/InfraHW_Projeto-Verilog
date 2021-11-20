@@ -22,9 +22,9 @@ Vi6Th2d0Ud_m4nPZ6FS[g[0
 !s100 iIn8ld?kGWH?oId0D13YM1
 Z7 OV;C;10.5b;63
 32
-Z8 !s110 1637444104
+Z8 !s110 1637445956
 !i10b 1
-Z9 !s108 1637444104.000000
+Z9 !s108 1637445956.000000
 Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Banco_reg.vhd|
 Z11 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Banco_reg.vhd|
 !i113 1
@@ -50,55 +50,55 @@ R11
 R12
 R13
 vcontroladora
-R8
+Z14 !s110 1637445957
 !i10b 1
-!s100 E@;T5JPR?X1QQj4Dlh<JO0
-I:LjnzL8GA672=Y76G^zaT0
-Z14 VDg1SIo80bB@j0V0VzS_@n1
+!s100 _]eQmVnB4;Z2j3zFLOB6K2
+IRP^;QQ`:JhQN4le[Bb`Zc2
+Z15 VDg1SIo80bB@j0V0VzS_@n1
 R4
-w1637443859
+w1637445943
 8/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/controladora.v
 F/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/controladora.v
 L0 1
-Z15 OV;L;10.5b;63
+Z16 OV;L;10.5b;63
 r1
 !s85 0
 31
-R9
+Z17 !s108 1637445957.000000
 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/controladora.v|
 !s90 -reportprogress|300|-work|work|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/controladora.v|
 !i113 1
-Z16 o-work work
-Z17 tCvgOpt 0
+Z18 o-work work
+Z19 tCvgOpt 0
 vCPU
-R8
+R14
 !i10b 1
 !s100 4R5?EF6lKk@;Nn;4cAWHB0
 I=AM30AfQd<NAhaKMT=<<G0
-R14
+R15
 R4
 R0
 8/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/CPU.v
 F/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/CPU.v
 L0 1
-R15
+R16
 r1
 !s85 0
 31
-R9
+R17
 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/CPU.v|
 !s90 -reportprogress|300|-work|work|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/CPU.v|
 !i113 1
-R16
-R17
+R18
+R19
 n@c@p@u
 Einstr_reg
 R0
 R2
 R3
 R4
-Z18 8/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Instr_Reg.vhd
-Z19 F/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Instr_Reg.vhd
+Z20 8/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Instr_Reg.vhd
+Z21 F/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Instr_Reg.vhd
 l0
 L42
 VAfV1kYS402dnLRiFO;Z7_2
@@ -108,8 +108,8 @@ R7
 R8
 !i10b 1
 R9
-Z20 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Instr_Reg.vhd|
-Z21 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Instr_Reg.vhd|
+Z22 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Instr_Reg.vhd|
+Z23 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Instr_Reg.vhd|
 !i113 1
 R12
 R13
@@ -126,38 +126,38 @@ R7
 R8
 !i10b 1
 R9
-R20
-R21
+R22
+R23
 !i113 1
 R12
 R13
 Ememoria
 R0
-Z22 DPx4 work 13 ram_constants 0 22 BbIcggj=<H_W75Jb?WIoZ0
-Z23 DPx3 lpm 14 lpm_components 0 22 kbQff^T0P6bT[7n>=YCE40
+Z24 DPx4 work 13 ram_constants 0 22 BbIcggj=<H_W75Jb?WIoZ0
+Z25 DPx3 lpm 14 lpm_components 0 22 kbQff^T0P6bT[7n>=YCE40
 R1
 R2
 R3
 R4
-Z24 8/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Memoria.vhd
-Z25 F/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Memoria.vhd
+Z26 8/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Memoria.vhd
+Z27 F/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Memoria.vhd
 l0
 L67
 V<[RFRXeHV^PMOiiinkBoS0
 !s100 __XEo>II7SFLX6Xa7VZA63
 R7
 32
-R8
+R14
 !i10b 1
 R9
-Z26 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Memoria.vhd|
-Z27 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Memoria.vhd|
+Z28 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Memoria.vhd|
+Z29 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Memoria.vhd|
 !i113 1
 R12
 R13
 Abehavioral_arch
-R22
-R23
+R24
+R25
 R1
 R2
 R3
@@ -168,268 +168,268 @@ VR9W83dOfA7lWR9j>i6THA2
 !s100 aLo:Seezh^aEQ@MaJf[__3
 R7
 32
-R8
+R14
 !i10b 1
 R9
-R26
-R27
+R28
+R29
 !i113 1
 R12
 R13
 vmux_2x1_1_1
-R8
+R14
 !i10b 1
 !s100 K?1Nb:hIE6UUK^V=c8`AM0
 IBlMQn@759AIh7ani=_z;G1
-R14
+R15
 R4
 R0
 8/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_2x1_1_1.v
 F/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_2x1_1_1.v
 L0 2
-R15
+R16
 r1
 !s85 0
 31
-R9
+R17
 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_2x1_1_1.v|
 !s90 -reportprogress|300|-work|work|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_2x1_1_1.v|
 !i113 1
-R16
-R17
+R18
+R19
 vmux_2x1_32_32
-R8
+R14
 !i10b 1
 !s100 oSNPibg723B>gomKHU1>m2
 IjgTHMiFaSM=6CLDjjE5o50
-R14
+R15
 R4
 R0
 8/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_2x1_32_32.v
 F/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_2x1_32_32.v
 L0 2
-R15
+R16
 r1
 !s85 0
 31
-R9
+R17
 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_2x1_32_32.v|
 !s90 -reportprogress|300|-work|work|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_2x1_32_32.v|
 !i113 1
-R16
-R17
+R18
+R19
 vmux_ALUSrcB
-R8
+R14
 !i10b 1
 !s100 ola]7@HF;8f_GgENLnC9>0
 IHP74eG5JoBc27<>8ffPnX3
-R14
+R15
 R4
 R0
 8/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_ALUSrcB.v
 F/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_ALUSrcB.v
 L0 1
-R15
+R16
 r1
 !s85 0
 31
-R9
+R17
 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_ALUSrcB.v|
 !s90 -reportprogress|300|-work|work|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_ALUSrcB.v|
 !i113 1
-R16
-R17
+R18
+R19
 nmux_@a@l@u@src@b
 vmux_IorD
-R8
+R14
 !i10b 1
 !s100 jK2jPlcb`zG<h1n0K<n?H3
 IgV@8OR;hfocD5ff]T3j3X2
-R14
+R15
 R4
 R0
 8/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_IorD.v
 F/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_IorD.v
 L0 1
-R15
+R16
 r1
 !s85 0
 31
-R9
+R17
 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_IorD.v|
 !s90 -reportprogress|300|-work|work|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_IorD.v|
 !i113 1
-R16
-R17
+R18
+R19
 nmux_@ior@d
 vmux_MemtoReg
-R8
+R14
 !i10b 1
 !s100 HjB@P33iV@;3Wn0;P4J:o2
 ICAcO9[IMcRzeRTa_ULL7A1
-R14
+R15
 R4
 R0
 8/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_MemtoReg.v
 F/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_MemtoReg.v
 L0 1
-R15
+R16
 r1
 !s85 0
 31
-R9
+R17
 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_MemtoReg.v|
 !s90 -reportprogress|300|-work|work|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_MemtoReg.v|
 !i113 1
-R16
-R17
+R18
+R19
 nmux_@memto@reg
 vmux_PCSrc
-R8
+R14
 !i10b 1
 !s100 f=TGRS]8Y1m8Ol`SU:2AN2
 I5CN1>kO7J`3c`F=^<?GzI1
-R14
+R15
 R4
 R0
 8/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_PCSrc.v
 F/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_PCSrc.v
 L0 1
-R15
+R16
 r1
 !s85 0
 31
-R9
+R17
 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_PCSrc.v|
 !s90 -reportprogress|300|-work|work|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_PCSrc.v|
 !i113 1
-R16
-R17
+R18
+R19
 nmux_@p@c@src
 vmux_RegDst
-R8
+R14
 !i10b 1
 !s100 feJ3YG4K8ETan:?7f4gR42
 Icd1Yb`lLbdm4V7OecF0gj2
-R14
+R15
 R4
 R0
 8/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_RegDst.v
 F/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_RegDst.v
 L0 1
-R15
+R16
 r1
 !s85 0
 31
-R9
+R17
 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_RegDst.v|
 !s90 -reportprogress|300|-work|work|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_RegDst.v|
 !i113 1
-R16
-R17
+R18
+R19
 nmux_@reg@dst
 vmux_ShiftQnt
-R8
+R14
 !i10b 1
 !s100 3=jIXB:=n@EHWTiW2g:>h2
 I[lT?05z8NTzn=nhU8`Jg13
-R14
+R15
 R4
 R0
 8/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_ShiftQnt.v
 F/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_ShiftQnt.v
 L0 1
-R15
+R16
 r1
 !s85 0
 31
-R9
+R17
 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_ShiftQnt.v|
 !s90 -reportprogress|300|-work|work|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_ShiftQnt.v|
 !i113 1
-R16
-R17
+R18
+R19
 nmux_@shift@qnt
 vmux_ShiftReg
-R8
+R14
 !i10b 1
 !s100 ]bikOeI[;VD7i@PdCJ3322
 IJ]O3M8BA?H1k1<1;PzJTc2
-R14
+R15
 R4
 R0
 8/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_ShiftReg.v
 F/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_ShiftReg.v
 L0 1
-R15
+R16
 r1
 !s85 0
 31
-R9
+R17
 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_ShiftReg.v|
 !s90 -reportprogress|300|-work|work|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/mux_ShiftReg.v|
 !i113 1
-R16
-R17
+R18
+R19
 nmux_@shift@reg
 voverwrite_block
-Z28 !s110 1637444105
+R14
 !i10b 1
 !s100 2jMzP@;K7dH]mYFDMea?91
 IGo:J]PP]jGQSXQcDM05?41
-R14
+R15
 R4
 R0
 8/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/overwrite_block.v
 F/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/overwrite_block.v
 L0 1
-R15
+R16
 r1
 !s85 0
 31
-R9
+R17
 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/overwrite_block.v|
 !s90 -reportprogress|300|-work|work|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/overwrite_block.v|
 !i113 1
-R16
-R17
+R18
+R19
 vpc_sel
-R28
+R14
 !i10b 1
 !s100 jekSXGbOe`lVJY6>Qi9gj0
 IFZGSMa29H[mh>j<Z2kJjY1
-R14
+R15
 R4
 R0
 8/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/pc_sel.v
 F/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/pc_sel.v
 L0 1
-R15
+R16
 r1
 !s85 0
 31
-Z29 !s108 1637444105.000000
+R17
 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/pc_sel.v|
 !s90 -reportprogress|300|-work|work|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/pc_sel.v|
 !i113 1
-R16
-R17
+R18
+R19
 Pram_constants
 R0
 R4
-R24
-R25
+R26
+R27
 l0
 L47
 VBbIcggj=<H_W75Jb?WIoZ0
 !s100 5;`Z:D@MR5CT6j_[c9;6h3
 R7
 32
-R8
+R14
 !i10b 1
 R9
-R26
-R27
+R28
+R29
 !i113 1
 R12
 R13
@@ -447,9 +447,9 @@ V4GibeROOKf]^CUjTE67Bo0
 !s100 =0ZG0kkZKT?Zo?iX2R9=P1
 R7
 32
-R8
+R14
 !i10b 1
-R9
+R17
 Z32 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/RegDesloc.vhd|
 Z33 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/RegDesloc.vhd|
 !i113 1
@@ -466,9 +466,9 @@ VDFCTADkAb^4XhT09kD<k32
 !s100 3`2HClJO^bJLd6@PodWh?3
 R7
 32
-R8
+R14
 !i10b 1
-R9
+R17
 R32
 R33
 !i113 1
@@ -487,9 +487,9 @@ VD=`aG^VOPEDP69ifb8G;52
 !s100 ^e8=Z<CbNTLXR@XGZJMQo3
 R7
 32
-R8
+R14
 !i10b 1
-R9
+R17
 Z36 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Registrador.vhd|
 Z37 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Registrador.vhd|
 !i113 1
@@ -505,35 +505,35 @@ V<kVfXRZJUh40ja<<lN_3:3
 !s100 EXKKzlBL1ARAk5TCN4`Vg2
 R7
 32
-R8
+R14
 !i10b 1
-R9
+R17
 R36
 R37
 !i113 1
 R12
 R13
 vshift_left26_28
-R28
+R14
 !i10b 1
 !s100 0?Z94]Tg8S?j^PnXS_B421
 IdY@iWjUYLdH;WdZQE^Z]>1
-R14
+R15
 R4
 R0
 8/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/shift_left26_28.v
 F/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/shift_left26_28.v
 L0 1
-R15
+R16
 r1
 !s85 0
 31
-R29
+R17
 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/shift_left26_28.v|
 !s90 -reportprogress|300|-work|work|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/shift_left26_28.v|
 !i113 1
-R16
-R17
+R18
+R19
 Eshift_left_2
 R0
 Z38 DPx4 ieee 18 std_logic_unsigned 0 22 ;eZjO2D4ZDz<]0>8AL<ne1
@@ -549,9 +549,9 @@ Vcg_ik4G^6^MPYTf[meBLb3
 !s100 IOe1C7UThbBI_jBMNPAKB1
 R7
 32
-R8
+R14
 !i10b 1
-R9
+R17
 Z42 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/shift_left_2.vhd|
 Z43 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/shift_left_2.vhd|
 !i113 1
@@ -569,57 +569,57 @@ VWJLXTKm6dSS`J0MMNJPHE3
 !s100 Imz`bRk69Whli20n6fo<o0
 R7
 32
-R8
+R14
 !i10b 1
-R9
+R17
 R42
 R43
 !i113 1
 R12
 R13
 vSignExtended_16_32
-R28
+R14
 !i10b 1
 !s100 CG?JYBYWN]7c[d6d=fmEG0
 I8>=1EUYWF_jTUAkVC2JHk1
-R14
+R15
 R4
 R0
 8/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/SignExtended_16_32.v
 F/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/SignExtended_16_32.v
 L0 1
-R15
+R16
 r1
 !s85 0
 31
-R29
+R17
 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/SignExtended_16_32.v|
 !s90 -reportprogress|300|-work|work|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/SignExtended_16_32.v|
 !i113 1
-R16
-R17
+R18
+R19
 n@sign@extended_16_32
 vSignExtended_1_32
-R28
+R14
 !i10b 1
 !s100 NK<MG0]nbD5<eCHT@1Ma51
 IROhNIRAXo3a_N4[`3Hd641
-R14
+R15
 R4
 R0
 8/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/SignExtended_1_32.v
 F/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/SignExtended_1_32.v
 L0 1
-R15
+R16
 r1
 !s85 0
 31
-R29
+R17
 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/SignExtended_1_32.v|
 !s90 -reportprogress|300|-work|work|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/SignExtended_1_32.v|
 !i113 1
-R16
-R17
+R18
+R19
 n@sign@extended_1_32
 Eula32
 R0
@@ -635,9 +635,9 @@ VM1`EhBco;Cb9<:6CC>b?e2
 !s100 bGmbVJaTC>R`I<lBgn7@L3
 R7
 32
-R8
+R14
 !i10b 1
-R9
+R17
 Z46 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Ula32.vhd|
 Z47 !s107 /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Ula32.vhd|
 !i113 1
@@ -654,9 +654,9 @@ VF94M;2UJ^55hCen3Z[Kfk0
 !s100 1E>E2KjDKb=5dkES8U2ha0
 R7
 32
-R8
+R14
 !i10b 1
-R9
+R17
 R46
 R47
 !i113 1

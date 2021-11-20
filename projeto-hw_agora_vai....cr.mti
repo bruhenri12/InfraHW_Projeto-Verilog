@@ -26,6 +26,13 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity shift_left_2
 -- Compiling architecture behavioral_arch of shift_left_2
 
+} {} {}} /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/controladora.v {1 {vlog -work work -stats=none /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/controladora.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module controladora
+
+Top level modules:
+	controladora
+
 } {} {}} /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Memoria.vhd {1 {vcom -work work -2002 -explicit -stats=none /home/tnpb/Desktop/projeto-infrahw-3/InfraHW_Projeto-Verilog/componentes/Memoria.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
