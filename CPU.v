@@ -28,7 +28,7 @@ module CPU(
     wire RegALoad, RegBLoad;
     wire [31:0] RegA_Out, RegB_Out;
     //ULA
-    wire ALUSrcA, Overflow;
+    wire ALUSrcA, Overflow, Zero, Negativo, Igual;
     wire [1:0] ALUSrcB;
     wire [2:0] ALUOp;
     wire [31:0] ALUSrcA_Out, ALUSrcB_Out, Imedato_L2_Out, ImediatoExt;
