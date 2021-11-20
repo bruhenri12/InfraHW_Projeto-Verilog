@@ -1,4 +1,4 @@
-module SignExtended (
+module SignExtended_1_32 (
     input wire in1,
     output wire [31:0] out
 );

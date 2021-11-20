@@ -60,7 +60,6 @@
 --					   apenas duas (0,1) como estamos acostumados a aprender no básico.	
 --------------------------------------------------------------------------------
 
-
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.all;
 USE IEEE.NUMERIC_STD.ALL;										-- v 1.3
