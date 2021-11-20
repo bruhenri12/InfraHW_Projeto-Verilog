@@ -152,16 +152,17 @@ module controladora (
                 RegBLoad    = 1;
                 ALUOutWrite = 1;
                 // next state
-                if((opcode == op0 && funct == add_funct) ||
-                    opcode == addi_op ||
-                    opcode == addiu_op)
+                if(opcode == op0 && funct == add_funct)
                     next_state = 5;
+                else if (opcode == addi_op ||
+                         opcode == addiu_op)
+                    next_state = 73;
                 // else if ...
                 else // opcode inexistente
                     next_state = 11;
             end
 
-            5: begin
+            5: begin: ADD
                 // output
                 ALUSrcA     = 1;
                 ALUSrcB     = 0;
@@ -171,11 +172,8 @@ module controladora (
                 // next state
                 if(Overflow)
                     next_state = 7;  // overflow
-                else if(opcode == op0 && funct == add_funct)
-                    next_state = 6;  // add
-                else if(opcode == addi_op)
-                    next_state = 8;  // addiu
-                // else if ...
+                else
+                    next_state = 6;  // continue add
             end
 
             6: begin: END_OF_ADD
@@ -188,7 +186,25 @@ module controladora (
                 next_state = 1;  // start
             end
 
-            7: begin: INICIO_OVERFLOW
+            73: begin: ADDI_OR_ADDIU
+                // output
+                ALUSrcA     = 1;
+                ALUSrcB     = 3;
+                ALUOp       = 1;
+                ALUOSrc     = 0;
+                ALUOutWrite = 1;
+                // next state
+                if(opcode == addi_op) begin
+                    if(Overflow)
+                        next_state = 7;  // overflow
+                    else
+                        next_state = 8;  // addi
+                end
+                else
+                    next_state = 9;  // addiu
+            end
+
+            7: begin: OVERFLOW
                 // output
                 ALUOutWrite   = 0;
                 ALUSrcA       = 0;
