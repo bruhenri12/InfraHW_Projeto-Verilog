@@ -23,7 +23,7 @@ module CPU(
     wire [3:0] MemtoReg;
     wire [4:0] RegDst_Out, IR15_11;
     wire [31:0] Banco_reg_Out1, Banco_reg_Out2;
-    wire [31:0] MemtoReg_Out, Shifter_Out, Hi_Out, Lo_Out, PC_Out, ALUResult_Out, ALUOut_Out;
+    wire [31:0] MemtoReg_Out, Shifter_Out, Hi_Out, Lo_Out, ALUResult_Out, ALUOut_Out;
     //Registradores
     wire RegALoad, RegBLoad;
     wire [31:0] RegA_Out, RegB_Out;
@@ -37,7 +37,7 @@ module CPU(
     wire [2:0] PCSrc;
     wire [25:0] IR25_0_Out;
     wire [27:0] ShiftLeft_26_28_Out;
-    wire [31:0] ALUOSrc_Out, ShiftLeft_PC, EPC_Out, PCSrc_Out, GLtMuxExt;
+    wire [31:0] ALUOSrc_Out, ShiftLeft_PC, PC_Out, EPC_Out, PCSrc_Out, GLtMuxExt;
 
     //Shifter
     wire [1:0] ShiftQnt, ShiftReg;

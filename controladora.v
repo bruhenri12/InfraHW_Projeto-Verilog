@@ -18,16 +18,16 @@ module controladora (
      * Sáb nov 2 às 15:38 - Cauê: E lá vamos nós.
     */
 
-    parameter add_funct  = 5'h20,
-              and_funct  = 5'h24,
-              div_funct  = 5'h1a,
-              mult_funct = 5'h18,
-              jr_funct   = 5'h8,
-              addi_op    = 5'h8,
-              addiu_op   = 5'h9,
-              op0        = 5'h0;
+    parameter add_funct  = 6'h20,
+              and_funct  = 6'h24,
+              div_funct  = 6'h1a,
+              mult_funct = 6'h18,
+              jr_funct   = 6'h8,
+              addi_op    = 6'h8,
+              addiu_op   = 6'h9,
+              op0        = 6'h0;
 
-    reg [6:0] state, next_state;
+    reg [7:0] state, next_state;
 
     initial begin
         state = 0;
@@ -38,11 +38,8 @@ module controladora (
         next_state = 0;
     end
 
-    always @(posedge clk) begin
-        state = next_state;
-    end
-
     always @(posedge clk) begin: OUTPUT_LOGIC_AND_NEXT_STATE_LOGIC
+        state = next_state;
         case (state)
             0: begin: RESET
                 PCWriteCond   = 0;
@@ -151,15 +148,15 @@ module controladora (
                 RegALoad    = 1;
                 RegBLoad    = 1;
                 ALUOutWrite = 1;
-                // next state
-                if(opcode == op0 && funct == add_funct)
+                next_state = 73;
+                /* next state
+                if((opcode == op0) && (funct == add_funct))
                     next_state = 5;
-                else if (opcode == addi_op ||
-                         opcode == addiu_op)
+                else if ((opcode == addi_op) || (opcode == addiu_op))
                     next_state = 73;
-                // else if ...
                 else // opcode inexistente
                     next_state = 11;
+                    */
             end
 
             5: begin: ADD
@@ -189,7 +186,7 @@ module controladora (
             73: begin: ADDI_OR_ADDIU
                 // output
                 ALUSrcA     = 1;
-                ALUSrcB     = 3;
+                ALUSrcB     = 2;
                 ALUOp       = 1;
                 ALUOSrc     = 0;
                 ALUOutWrite = 1;
