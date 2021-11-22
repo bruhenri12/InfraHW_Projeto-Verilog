@@ -23,8 +23,8 @@ module controladora (
               div_funct  = 6'h1a,
               mult_funct = 6'h18,
               jr_funct   = 6'h8,
-              addi_op    = 6'h8,
-              addiu_op   = 6'h9,
+              addi_op    = 6'b001000,
+              addiu_op   = 6'b001001,
               op0        = 6'h0;
 
     reg [7:0] state, next_state;
@@ -125,10 +125,9 @@ module controladora (
 
             2: begin
                 // output
-                IRWrite       = 1;
                 PCWrite       = 0;
                 // next state
-                next_state    = 4;
+                next_state    = 3;
             end
 
             3: begin
