@@ -18,14 +18,14 @@ module controladora (
      * Sáb nov 2 às 15:38 - Cauê: E lá vamos nós.
     */
 
-    parameter add_funct  = 6'h20,
-              and_funct  = 6'h24,
-              div_funct  = 6'h1a,
-              mult_funct = 6'h18,
-              jr_funct   = 6'h8,
-              addi_op    = 6'b001000,
-              addiu_op   = 6'b001001,
-              op0        = 6'h0;
+    parameter  add_funct  = 6'h20;
+    parameter  and_funct  = 6'h24;
+    parameter  div_funct  = 6'h1a;
+    parameter  mult_funct = 6'h18;
+    parameter  jr_funct   = 6'h8;
+    parameter  addi_op    = 6'b001000;
+    parameter  addiu_op   = 6'b001001;
+    parameter  op0        = 6'h0;
 
     reg [7:0] state, next_state;
 
