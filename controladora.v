@@ -148,6 +148,7 @@ module controladora (
                 RegBLoad    = 1;
                 ALUOutWrite = 1;
                 // next state
+                #1;
                 if((opcode == op0) && (funct == add_funct)) begin
                     next_state = 5;  // add
                 end else if((opcode == addi_op) || (opcode == addiu_op)) begin
