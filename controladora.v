@@ -148,15 +148,14 @@ module controladora (
                 RegALoad    = 1;
                 RegBLoad    = 1;
                 ALUOutWrite = 1;
-                next_state = 73;
-                /* next state
-                if((opcode == op0) && (funct == add_funct))
-                    next_state = 5;
-                else if ((opcode == addi_op) || (opcode == addiu_op))
-                    next_state = 73;
-                else // opcode inexistente
+                // next state
+                if((opcode == op0) && (funct == add_funct)) begin
+                    next_state = 5;  // add
+                end else if((opcode == addi_op) || (opcode == addiu_op)) begin
+                    next_state = 73;  // addi or addiu
+                end else begin // opcode inexistente
                     next_state = 11;
-                    */
+                end
             end
 
             5: begin: ADD
