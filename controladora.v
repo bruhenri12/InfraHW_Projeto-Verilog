@@ -53,7 +53,7 @@ module controladora (
 
     always @(posedge clk) begin: NEXT_STATE_LOGIC
         if(counter > 0)
-            conter <= counter - 1;
+            counter <= counter - 1;
 
         case(state)
             0: begin: GO_TO_1
@@ -157,7 +157,7 @@ module controladora (
                 if(opcode == lw_op)
                     state <= 20;
                 else if(opcode == lh_op)
-                    sate <= 21;
+                    state <= 21;
                 else if(opcode == lb_op)
                     state <= 22;
                 else if(opcode == sh_op)
@@ -223,11 +223,11 @@ module controladora (
             end
 
             31: begin
-                next_state <= 33;
+                state <= 33;
             end
 
             32: begin
-                next_state <= 33;
+                state <= 33;
             end
 
             33: begin: GO_TO_START_24
@@ -453,16 +453,16 @@ module controladora (
             end
 
             16: begin
-                IorD         = 1;
-                MemReadWrite = 0;
-                ALUOutWrite  = 0;
+                IorD          = 1;
+                MemRead_Write = 0;
+                ALUOutWrite   = 0;
             end
 
             17: begin
-                WDSrc        = 0;
-                IorD         = 1;
-                MemReadWrite = 1;
-                ALUOutWrite  = 1;
+                WDSrc         = 0;
+                IorD          = 1;
+                MemRead_Write = 1;
+                ALUOutWrite   = 1;
             end
 
             18: begin
@@ -499,21 +499,21 @@ module controladora (
             end
 
             23: begin
-                Store        = 1;
-                TwoBytes     = 1;
-                WDSrc        = 1;
-                IorD         = 1;
-                MemReadWrite = 1;
-                MDRLoad      = 0;
+                Store         = 1;
+                TwoBytes      = 1;
+                WDSrc         = 1;
+                IorD          = 1;
+                MemRead_Write = 1;
+                MDRLoad       = 0;
             end
 
             24: begin
-                Store        = 1;
-                TwoBytes     = 0;
-                WDSrc        = 1;
-                IorD         = 1;
-                MemReadWrite = 1;
-                MDRLoad      = 0;
+                Store         = 1;
+                TwoBytes      = 0;
+                WDSrc         = 1;
+                IorD          = 1;
+                MemRead_Write = 1;
+                MDRLoad       = 0;
             end
 
             25: begin: SLL_SRA_SRL_START
@@ -523,7 +523,7 @@ module controladora (
                 ALUOutWrite = 0;
             end
 
-            26: begin:
+            26: begin
                 ShiftType = 3'b010;
             end
 
@@ -536,9 +536,9 @@ module controladora (
             end
 
             29: begin
-                RegDst = 01
-                MemtoReg = 0011
-                RegWrite = 1
+                RegDst = 01;
+                MemtoReg = 4'b0011;
+                RegWrite = 1;
             end
 
             30: begin: SLLV_SRAV_START
@@ -562,7 +562,7 @@ module controladora (
                 RegWrite = 1;
             end
 
-            34: begin: SRAM_START
+            34: begin: SRAM_START_34
                 RegALoad    = 0;
                 RegBLoad    = 0;
                 ALUSrcA     = 1;
@@ -572,32 +572,32 @@ module controladora (
                 ALUOutWrite = 1;
             end
 
-            35: begin: SRAM_START
-                ALUOutWrite = 0;
-                IorD        = 1;
-                MemReadWrite      = 0;
+            35: begin: SRAM_START_35
+                ALUOutWrite   = 0;
+                IorD          = 1;
+                MemRead_Write = 0;
             end
 
-            36: begin: SRAM_START
+            36: begin: SRAM_START_36
                 // wait
             end
 
-            37: begin: SRAM_START
+            37: begin: SRAM_START_37
                 MDRLoad = 1;
             end
 
-            38: begin: SRAM_START
+            38: begin: SRAM_START_38
                 MDRLoad   = 0;
                 ShiftQnt  = 0;
                 ShiftReg  = 2;
                 ShiftType = 1;
             end
 
-            39: begin: SRAM_START
+            39: begin: SRAM_START_39
                 ShiftType = 4;
             end
 
-            40: begin: SRAM_START
+            40: begin: SRAM_START_40
                 RegDst   = 0;
                 MemtoReg = 4'b0011;
                 RegWrite = 1;
