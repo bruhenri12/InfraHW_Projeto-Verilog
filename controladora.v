@@ -66,9 +66,9 @@ module controladora (
 
             5: begin
                 if(Overflow)
-                    state = 7;  // overflow
+                    state <= 7;  // overflow
                 else
-                    state = 6;  // continue add
+                    state <= 6;  // continue add
             end
 
             6: begin: GO_TO_START_6
@@ -87,7 +87,7 @@ module controladora (
                 state <= 12;
             end
 
-            13: begin:
+            13: begin
                 state <= 14;
             end
 
