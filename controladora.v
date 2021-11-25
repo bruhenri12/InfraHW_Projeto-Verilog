@@ -66,24 +66,24 @@ module controladora (
 
             5: begin
                 if(Overflow)
-                    next_state = 7;  // overflow
+                    state = 7;  // overflow
                 else
-                    next_state = 6;  // continue add
+                    state = 6;  // continue add
             end
 
-            6: begin: GO_TO_START
+            6: begin: GO_TO_START_6
                 state <= 1;
             end
 
-            7: begin: GO_TO_TRATAMENTO_DE_EXCECAO_PADRAO
+            7: begin: GO_TO_TRATAMENTO_DE_EXCECAO_PADRAO_7
                 state <= 12;
             end
 
-            8: begin: GO_TO_START
+            8: begin: GO_TO_START_8
                 state <= 1;
             end
 
-            11: begin: GO_TO_TRATAMENTO_DE_EXCECAO_PADRAO
+            11: begin: GO_TO_TRATAMENTO_DE_EXCECAO_PADRAO_11
                 state <= 12;
             end
 
@@ -91,11 +91,11 @@ module controladora (
                 state <= 14;
             end
 
-            14: begin: GO_TO_START
+            14: begin: GO_TO_START_14
                 state <= 1;
             end
 
-            73: begin: GO_TO_START
+            73: begin: GO_TO_START_73
                 if(opcode == addi_op) begin
                     if(Overflow)
                         state <= 7;  // overflow
