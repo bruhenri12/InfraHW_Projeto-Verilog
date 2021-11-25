@@ -536,7 +536,7 @@ module controladora (
             end
 
             29: begin
-                RegDst = 01;
+                RegDst = 2'b01;
                 MemtoReg = 4'b0011;
                 RegWrite = 1;
             end
