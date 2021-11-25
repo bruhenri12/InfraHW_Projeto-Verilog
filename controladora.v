@@ -18,21 +18,32 @@ module controladora (
      * Sáb nov 2 às 15:38 - Cauê: E lá vamos nós.
     */
 
-    parameter  sll_funct  = 6'h0;	
-    parameter  sllv_funct = 6'h4;	
-    parameter  sra_funct  = 6'h3;	
-    parameter  srav_funct = 6'h7;	
-    parameter  srl_funct  = 6'h2;	
-    parameter  sram_op    = 6'b000001;	
-    parameter  lui_op     = 6'hf;
-    parameter  add_funct  = 6'h20;
-    parameter  and_funct  = 6'h24;
-    parameter  div_funct  = 6'h1a;
-    parameter  mult_funct = 6'h18;
-    parameter  jr_funct   = 6'h8;
-    parameter  addi_op    = 6'h8;
-    parameter  addiu_op   = 6'h9;
-    parameter  op0        = 6'h0;
+    parameter op0 = 6'h0;
+
+    parameter sll_funct  = 6'h0,
+              sllv_funct = 6'h4,
+              sra_funct  = 6'h3,
+              srav_funct = 6'h7,
+              srl_funct  = 6'h2,
+              sram_op    = 6'h1,
+              lui_op     = 6'hf;
+    
+    parameter add_funct = 6'h20,
+              and_funct = 6'h24,
+              addi_op   = 6'h8,
+              addiu_op  = 6'h9;
+    
+    parameter div_funct  = 6'h1a,
+              mult_funct = 6'h18;
+    
+    parameter jr_funct = 6'h8;
+              
+    parameter lb_op = 6'h20,
+              lh_op = 6'h21,
+              lw_op = 6'h23,
+              sb_op = 6'h28,
+              sh_op = 6'h29,
+              sw_op = 6'h2b;
 
     reg [7:0] state;
 
@@ -57,16 +68,30 @@ module controladora (
             4: begin: END_OF_CICLOS_COMUNS
                 if((opcode == op0) && (funct == add_funct))
                     state <= 5;  // add
+                
+                else if((opcode == lb_op) ||
+                        (opcode == lh_op) ||
+                        (opcode == lw_op) ||
+                        (opcode == sb_op) ||
+                        (opcode == sh_op) ||
+                        (opcode == sw_op))
+                    state <= 15;  // any load or store
+
                 else if((opcode == op0) && ((funct == sll_funct) || (funct == sra_funct) || (funct == srl_funct)))
                     state = 20;  // sll, sra or srl
+
                 else if((opcode == op0) && ((funct == sllv_funct) || (funct == srav_funct)))
                     state = 22;  // sllv, srav
+
                 else if(opcode == sram_op)
                     state = 25;  // sram
+
                 else if(opcode == lui_op)
                     state = 26;  // lui
+
                 else if((opcode == addi_op) || (opcode == addiu_op))
                     state <= 73; // addi or addiu
+                    
                 else // opcode inexistente
                     state <= 11;
             end
@@ -99,6 +124,60 @@ module controladora (
             end
 
             14: begin: GO_TO_START_14
+                state <= 1;
+            end
+
+            15: begin
+                if(opcode == sw_op)
+                    state <= 17;
+                else
+                    state <= 16;
+            end
+
+            16: begin
+                state <= 18;
+            end
+
+            17: begin
+                state <= 1;
+            end
+
+            18: begin
+                state <= 19;
+            end
+
+            19: begin
+                if(opcode == lw_op)
+                    state <= 20;
+                else if(opcode == lh_op)
+                    sate <= 21;
+                else if(opcode == lb_op)
+                    state <= 22;
+                else if(opcode == sh_op)
+                    state <= 23;
+                else if(opcode == sb_op)
+                    state <= 24;
+                else
+                    state <= 0;
+            end
+
+            20: begin
+                state <= 1;
+            end
+
+            21: begin
+                state <= 1;
+            end
+
+            22: begin
+                state <= 1;
+            end
+
+            23: begin
+                state <= 1;
+            end
+
+            24: begin
                 state <= 1;
             end
 
@@ -312,14 +391,6 @@ module controladora (
                 RegWrite    = 1;
             end
 
-            73: begin: ADDI_OR_ADDIU
-                ALUSrcA     = 1;
-                ALUSrcB     = 2;
-                ALUOp       = 1;
-                ALUOSrc     = 0;
-                ALUOutWrite = 1;
-            end
-
             7: begin: OVERFLOW
                 ALUOutWrite   = 0;
                 ALUSrcA       = 0;
@@ -360,6 +431,78 @@ module controladora (
                 TwoBytes = 0;
                 PCSrc    = 3;
                 PCWrite  = 1;
+            end
+
+            15: begin
+                ALUSrcA     = 1;
+                ALUSrcB     = 2;
+                ALUOp       = 1;
+                ALUOSrc     = 0;
+                ALUOutWrite = 1;
+            end
+
+            16: begin
+                IorD         = 1;
+                MemReadWrite = 0;
+                ALUOutWrite  = 0;
+            end
+
+            17: begin
+                WDSrc        = 0;
+                IorD         = 1;
+                MemReadWrite = 1;
+                ALUOutWrite  = 1;
+            end
+
+            18: begin
+                // wait
+            end
+
+            19: begin
+                MDRLoad = 1;
+            end
+
+            20: begin
+                MemtoReg = 1;
+                RegDst   = 0;
+                RegWrite = 1;
+                MDRLoad  = 0;
+            end
+
+            21: begin
+                Store    = 0;
+                TwoBytes = 1;
+                MemtoReg = 2;
+                RegDst   = 0;
+                RegWrite = 1;
+                MDRLoad  = 0;
+            end
+
+            22: begin
+                Store    = 0;
+                TwoBytes = 0;
+                MemtoReg = 2;
+                RegDst   = 0;
+                RegWrite = 1;
+                MDRLoad  = 0;
+            end
+
+            23: begin
+                Store        = 1;
+                TwoBytes     = 1;
+                WDSrc        = 1;
+                IorD         = 1;
+                MemReadWrite = 1;
+                MDRLoad      = 0;
+            end
+
+            24: begin
+                Store        = 1;
+                TwoBytes     = 0;
+                WDSrc        = 1;
+                IorD         = 1;
+                MemReadWrite = 1;
+                MDRLoad      = 0;
             end
 
             25: begin: SLL_SRA_SRL_START
@@ -421,7 +564,7 @@ module controladora (
             35: begin: SRAM_START
                 ALUOutWrite = 0;
                 IorD        = 1;
-                MemR_W      = 0;
+                MemReadWrite      = 0;
             end
 
             36: begin: SRAM_START
@@ -464,6 +607,14 @@ module controladora (
                 RegDst = 2'b00;
                 MemtoReg = 4'b0011;
                 RegWrite = 1;
+            end
+
+            73: begin: ADDI_OR_ADDIU
+                ALUSrcA     = 1;
+                ALUSrcB     = 2;
+                ALUOp       = 1;
+                ALUOSrc     = 0;
+                ALUOutWrite = 1;
             end
             
         endcase
