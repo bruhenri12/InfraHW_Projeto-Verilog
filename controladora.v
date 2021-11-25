@@ -46,8 +46,13 @@ module controladora (
               sw_op = 6'h2b;
 
     reg [7:0] state;
+    // if you want for N cycles, set the counter to N-1
+    reg [6:0] counter;
 
     always @(posedge clk) begin: NEXT_STATE_LOGIC
+        if(counter > 0)
+            conter <= counter - 1;
+
         case(state)
             0: begin: GO_TO_1
                 state <= 1;
@@ -274,8 +279,10 @@ module controladora (
         endcase
     end
 
-    always @(posedge reset)
-        state <= 0;
+    always @(posedge reset) begin
+        counter <= 0;
+        state   <= 0;
+    end
 
     always @(state) begin: OUTPUT_LOGIC
         case (state)
@@ -355,6 +362,8 @@ module controladora (
                 ALUSrcB       = 1;
                 PCSrc         = 0;
                 ALUOp         = 1;
+
+                counter <= 0;
             end
 
             2: begin
