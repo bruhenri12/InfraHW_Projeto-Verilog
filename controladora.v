@@ -553,7 +553,7 @@ module controladora (
             end
 
             32: begin
-                ShiftType = 3'b011;
+                ShiftType = 3'b100;
             end
 
             33: begin: SLL_SRA_SRL_SLLV_SRAV_END
@@ -611,7 +611,7 @@ module controladora (
             end
 
             42: begin: LUI_SELECTION
-                ShiftType = 010;
+                ShiftType = 3'b010;
             end
 
             43: begin: SRAM_LUI_END
