@@ -18,22 +18,17 @@ module controladora (
      * Sáb nov 2 às 15:38 - Cauê: E lá vamos nós.
     */
 
-    // TODO deixar tudo hexadecimal
     parameter  add_funct  = 6'h20;
     parameter  and_funct  = 6'h24;
     parameter  div_funct  = 6'h1a;
     parameter  mult_funct = 6'h18;
     parameter  jr_funct   = 6'h8;
-    parameter  addi_op    = 6'b001000;
-    parameter  addiu_op   = 6'b001001;
+    parameter  addi_op    = 6'h8;
+    parameter  addiu_op   = 6'h9;
     parameter  op0        = 6'h0;
 
     reg [7:0] state;
 
-    // TODO deletar
-    initial begin
-        state = 0;
-    end
 
     always @(posedge clk) begin: NEXT_STATE_LOGIC
         case(state)
@@ -53,15 +48,13 @@ module controladora (
                 state <= 4;
             end
 
-            // TODO tirar begins e ends
             4: begin: END_OF_CICLOS_COMUNS
-                if((opcode == op0) && (funct == add_funct)) begin
+                if((opcode == op0) && (funct == add_funct))
                     state <= 5;  // add
-                end else if((opcode == addi_op) || (opcode == addiu_op)) begin
+                else if((opcode == addi_op) || (opcode == addiu_op))
                     state <= 73;  // addi or addiu
-                end else begin // opcode inexistente
+                else // opcode inexistente
                     state <= 11;
-                end
             end
 
             5: begin
