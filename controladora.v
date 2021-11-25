@@ -85,16 +85,16 @@ module controladora (
                     state <= 15;  // any load or store
 
                 else if((opcode == op0) && ((funct == sll_funct) || (funct == sra_funct) || (funct == srl_funct)))
-                    state = 20;  // sll, sra or srl
+                    state = 25;  // sll, sra or srl
 
                 else if((opcode == op0) && ((funct == sllv_funct) || (funct == srav_funct)))
-                    state = 22;  // sllv, srav
+                    state = 30;  // sllv, srav
 
                 else if(opcode == sram_op)
-                    state = 25;  // sram
+                    state = 34;  // sram
 
                 else if(opcode == lui_op)
-                    state = 26;  // lui
+                    state = 41;  // lui
 
                 else if((opcode == addi_op) || (opcode == addiu_op))
                     state <= 73; // addi or addiu
