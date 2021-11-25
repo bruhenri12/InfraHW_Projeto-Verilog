@@ -18,6 +18,7 @@ module controladora (
      * Sáb nov 2 às 15:38 - Cauê: E lá vamos nós.
     */
 
+    // TODO deixar tudo hexadecimal
     parameter  add_funct  = 6'h20;
     parameter  and_funct  = 6'h24;
     parameter  div_funct  = 6'h1a;
@@ -27,19 +28,92 @@ module controladora (
     parameter  addiu_op   = 6'b001001;
     parameter  op0        = 6'h0;
 
-    reg [7:0] state, next_state;
+    reg [7:0] state;
 
+    // TODO deletar
     initial begin
         state = 0;
     end
 
-    always @(posedge reset) begin
-        state = 0;
-        next_state = 0;
+    always @(posedge clk) begin: NEXT_STATE_LOGIC
+        case(state)
+            0: begin: GO_TO_1
+                state <= 1;
+            end
+
+            1: begin: GO_TO_2
+                state <= 2;
+            end
+
+            2: begin: GO_TO_3
+                state <= 3;
+            end
+
+            3: begin: GO_TO_4
+                state <= 4;
+            end
+
+            // TODO tirar begins e ends
+            4: begin: END_OF_CICLOS_COMUNS
+                if((opcode == op0) && (funct == add_funct)) begin
+                    state <= 5;  // add
+                end else if((opcode == addi_op) || (opcode == addiu_op)) begin
+                    state <= 73;  // addi or addiu
+                end else begin // opcode inexistente
+                    state <= 11;
+                end
+            end
+
+            5: begin
+                if(Overflow)
+                    next_state = 7;  // overflow
+                else
+                    next_state = 6;  // continue add
+            end
+
+            6: begin: GO_TO_START
+                state <= 1;
+            end
+
+            7: begin: GO_TO_TRATAMENTO_DE_EXCECAO_PADRAO
+                state <= 12;
+            end
+
+            8: begin: GO_TO_START
+                state <= 1;
+            end
+
+            11: begin: GO_TO_TRATAMENTO_DE_EXCECAO_PADRAO
+                state <= 12;
+            end
+
+            13: begin:
+                state <= 14;
+            end
+
+            14: begin: GO_TO_START
+                state <= 1;
+            end
+
+            73: begin: GO_TO_START
+                if(opcode == addi_op) begin
+                    if(Overflow)
+                        state <= 7;  // overflow
+                    else
+                        state <= 8;  // addi
+                end
+                else
+                    state <= 9;  // addiu
+            end
+
+            default: state <= 0;
+        endcase
     end
 
-    always @(posedge clk) begin: OUTPUT_LOGIC_AND_NEXT_STATE_LOGIC
-        state = next_state;
+    always @(posedge reset)
+        state <= 0;
+
+    always @(state) begin: OUTPUT_LOGIC
         case (state)
             0: begin: RESET
                 PCWriteCond   = 0;
@@ -72,12 +146,10 @@ module controladora (
                 PCSrc         = 0;
                 ShiftType     = 0;
                 //MemtoReg      = 0;
-                // output
+
                 RegDst   = 2'b11;
                 MemtoReg = 4'b0111;
                 RegWrite = 1;
-                // next state
-                next_state = 1;
             end
 
             1: begin: START
@@ -111,7 +183,7 @@ module controladora (
                 //PCSrc         = 0;
                 ShiftType     = 0;
                 MemtoReg      = 0;
-                // output
+
                 PCWrite       = 1;
                 IorD          = 0;
                 MemRead_Write = 0;
@@ -119,26 +191,17 @@ module controladora (
                 ALUSrcB       = 1;
                 PCSrc         = 0;
                 ALUOp         = 1;
-                // next state
-                next_state = 2;
             end
 
             2: begin
-                // output
-                PCWrite       = 0;
-                // next state
-                next_state    = 3;
+                PCWrite = 0;
             end
 
             3: begin
-                // output
-                IRWrite    = 1;
-                // next state
-                next_state = 4;
+                IRWrite = 1;
             end
 
             4: begin: END_OF_CICLOS_COMUNS
-                // output
                 IRWrite     = 0;
                 ALUSrcA     = 0;
                 ALUSrcB     = 3;
@@ -147,61 +210,32 @@ module controladora (
                 RegALoad    = 1;
                 RegBLoad    = 1;
                 ALUOutWrite = 1;
-                // next state
-                #1;
-                if((opcode == op0) && (funct == add_funct)) begin
-                    next_state = 5;  // add
-                end else if((opcode == addi_op) || (opcode == addiu_op)) begin
-                    next_state = 73;  // addi or addiu
-                end else begin // opcode inexistente
-                    next_state = 11;
-                end
             end
 
             5: begin: ADD
-                // output
                 ALUSrcA     = 1;
                 ALUSrcB     = 0;
                 ALUOp       = 1;
                 ALUOSrc     = 0;
                 ALUOutWrite = 1;
-                // next state
-                if(Overflow)
-                    next_state = 7;  // overflow
-                else
-                    next_state = 6;  // continue add
             end
 
             6: begin: END_OF_ADD
-                // output
                 ALUOutWrite = 0;
                 MemtoReg    = 0;
                 RegDst      = 1;
                 RegWrite    = 1;
-                // next state
-                next_state = 1;  // start
             end
 
             73: begin: ADDI_OR_ADDIU
-                // output
                 ALUSrcA     = 1;
                 ALUSrcB     = 2;
                 ALUOp       = 1;
                 ALUOSrc     = 0;
                 ALUOutWrite = 1;
-                // next state
-                if(opcode == addi_op) begin
-                    if(Overflow)
-                        next_state = 7;  // overflow
-                    else
-                        next_state = 8;  // addi
-                end
-                else
-                    next_state = 9;  // addiu
             end
 
             7: begin: OVERFLOW
-                // output
                 ALUOutWrite   = 0;
                 ALUSrcA       = 0;
                 ALUSrcB       = 1;
@@ -209,57 +243,40 @@ module controladora (
                 EPCWrite      = 1;
                 IorD          = 3;
                 MemRead_Write = 0;
-                // next state
-                next_state = 12;
             end
 
             8: begin: END_OF_ADDI
-                // output
                 ALUOutWrite = 0;
                 MemtoReg    = 0;
                 RegDst      = 0;
                 RegWrite    = 1;
-                // next_state
-                next_state = 1; // start
             end
 
             11: begin: OPCODE_INEXISTENTE
-                // output
                 IorD           = 2;
                 MemRead_Write  = 0;
                 ALUSrcA        = 0;
                 ALUSrcB        = 1;
                 ALUOp          = 3'b010;
                 EPCWrite       = 1;
-                // next state
-                next_state = 12;
             end
 
             12: begin: TRATAMENTO_DE_EXCECAO_PADRAO
-                // output
-                EPCWrite       = 0;
-                // next state
-                next_state = 13;
+                EPCWrite = 0;
             end
 
             13: begin
-                // output
                 MDRLoad = 1;
-                // next state
-                next_state = 14;
             end
 
             14: begin: END_OF_TRATAMENTO_DE_EXCECAO_PADRAO
-                // output
                 MDRLoad  = 0;
                 Store    = 0;
                 TwoBytes = 0;
                 PCSrc    = 3;
                 PCWrite  = 1;
-                // next state
-                next_state = 1;
             end
-            default: next_state = 0;
+            
         endcase
     end
 
