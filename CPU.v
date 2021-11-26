@@ -102,7 +102,7 @@ module CPU(
 
     SignExtended_16_32 SignExtended_16_32(Imediato, ImediatoExt);
 
-    shift_left_2 Imediato_L2(clk, rst, ImediatoExt, Imedato_L2_Out);
+    shift_left32_32 Imediato_L2(ImediatoExt, Imedato_L2_Out);
 
     mux_ALUSrcB Mux_ALUSrcB(ALUSrcB_Out, ALUSrcB, RegB_Out, ImediatoExt, Imedato_L2_Out);
 

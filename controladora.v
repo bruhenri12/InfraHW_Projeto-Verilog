@@ -166,6 +166,10 @@ module controladora (
                 state <= 12;
             end
 
+            12: begin
+                state <= 13;    
+            end
+
             13: begin
                 state <= 14;
             end
@@ -363,7 +367,7 @@ module controladora (
             end
 
             52: begin 
-                state <= 1
+                state <= 1;
             end 
 
             default: state <= 0;
@@ -625,9 +629,9 @@ module controladora (
             end
 
             29: begin
-                RegDst   = 2'b01
-                MemtoReg = 2'b0011
-                RegWrite = 1
+                RegDst   = 2'b01;
+                MemtoReg = 4'b0011;
+                RegWrite = 1;
             end
 
             30: begin: SLLV_SRAV_START
@@ -662,9 +666,9 @@ module controladora (
             end
 
             35: begin: SRAM_START_35
-                ALUOutWrite = 0;
-                IorD        = 1;
-                MemReadWrite      = 0;
+                ALUOutWrite   = 0;
+                IorD          = 1;
+                MemRead_Write = 0;
             end
 
             36: begin: SRAM_START_36
@@ -756,6 +760,7 @@ module controladora (
             end
 
             59: begin: JAL
+                RegDst = 2;
                 MemtoReg = 6;
                 RegWrite = 1;
                 ALUOutWrite = 0;
