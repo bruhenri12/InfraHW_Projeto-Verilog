@@ -170,7 +170,11 @@ module controladora (
             end
 
             12: begin
+<<<<<<< Updated upstream
                 state <= 13;    
+=======
+                state <= 13;
+>>>>>>> Stashed changes
             end
 
             13: begin
@@ -526,7 +530,7 @@ module controladora (
                 PCWrite  = 1;
             end
 
-            15: begin
+            15: begin: BEGIN_LOAD_OR_STORE
                 ALUSrcA     = 1;
                 ALUSrcB     = 2;
                 ALUOp       = 1;
@@ -534,13 +538,13 @@ module controladora (
                 ALUOutWrite = 1;
             end
 
-            16: begin
+            16: begin: NOT_SW
                 IorD         = 1;
                 MemRead_Write = 0;
                 ALUOutWrite  = 0;
             end
 
-            17: begin
+            17: begin: END_SW
                 WDSrc        = 0;
                 IorD         = 1;
                 MemRead_Write = 1;
@@ -555,14 +559,14 @@ module controladora (
                 MDRLoad = 1;
             end
 
-            20: begin
+            20: begin: END_LW
                 MemtoReg = 1;
                 RegDst   = 0;
                 RegWrite = 1;
                 MDRLoad  = 0;
             end
 
-            21: begin
+            21: begin: END_LH
                 Store    = 0;
                 TwoBytes = 1;
                 MemtoReg = 2;
@@ -571,7 +575,7 @@ module controladora (
                 MDRLoad  = 0;
             end
 
-            22: begin
+            22: begin: END_LB
                 Store    = 0;
                 TwoBytes = 0;
                 MemtoReg = 2;
@@ -580,7 +584,7 @@ module controladora (
                 MDRLoad  = 0;
             end
 
-            23: begin
+            23: begin: END_SH
                 Store         = 1;
                 TwoBytes      = 1;
                 WDSrc         = 1;
@@ -589,7 +593,7 @@ module controladora (
                 MDRLoad       = 0;
             end
 
-            24: begin
+            24: begin: END_SB
                 Store         = 1;
                 TwoBytes      = 0;
                 WDSrc         = 1;
