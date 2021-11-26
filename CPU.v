@@ -33,7 +33,8 @@ module CPU(
     wire [2:0] ALUOp;
     wire [31:0] ALUSrcA_Out, ALUSrcB_Out, Imedato_L2_Out, ImediatoExt;
     //PC
-    wire ALUOSrc, GLtMux, Lt, Gt, GLtMux_Out, ALUOutWrite, EPCWrite, EQorNE, GTorLT, EQorNE_Out, GTorLT_Out, PCLoad;
+    wire ALUOSrc, GLtMux, Lt, Gt, GLtMux_Out, ALUOutWrite, EPCWrite, EQorNE_Out, GTorLT_Out, PCLoad;
+    wire [1:0] EQorNE, GTorLT;
     wire [2:0] PCSrc;
     wire [25:0] IR25_0_Out;
     wire [27:0] ShiftLeft_26_28_Out;
@@ -61,11 +62,11 @@ module CPU(
 
     //Controladora
     controladora Control(clk, Overflow, rst, Opcode, Funct, PCWriteCond, 
-                        PCWrite, EQorNE, GTorLT, WDSrc, MemRead_Write, IRWrite,
+                        PCWrite, WDSrc, MemRead_Write, IRWrite,
                         RegWrite, RegALoad, RegBLoad, ALUSrcA, EPCWrite, ALUOSrc, 
                         ALUOutWrite, GLtMux, TwoBytes, Store, DivOrM, HiLoSrc, 
-                        HiLoWrite, MDR, RegDst, ALUSrcB, ShiftQnt, ShiftReg, IorD,
-                        ALUOp, PCSrc, ShiftType, MemtoReg);
+                        HiLoWrite, MDR, RegDst, ALUSrcB, ShiftQnt, ShiftReg, EQorNE, 
+                        GTorLT, IorD, ALUOp, PCSrc, ShiftType, MemtoReg);
 
 
     //Conjuntos de blocos:

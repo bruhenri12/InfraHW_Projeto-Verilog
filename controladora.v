@@ -1,10 +1,10 @@
 module controladora (
     input wire clk, Overflow, reset,
     input wire [5:0] opcode, funct,
-    output reg PCWriteCond, PCWrite, EQorNE, GTorLT, WDSrc, MemRead_Write, IRWrite,
+    output reg PCWriteCond, PCWrite, WDSrc, MemRead_Write, IRWrite,
                 RegWrite, RegALoad, RegBLoad, ALUSrcA, EPCWrite, ALUOSrc, ALUOutWrite,
                 GLtMux, TwoBytes, Store, DivOrM, HiLoSrc, HiLoWrite, MDRLoad,
-    output reg [1:0] RegDst, ALUSrcB, ShiftQnt, ShiftReg,
+    output reg [1:0] RegDst, ALUSrcB, ShiftQnt, ShiftReg, EQorNE, GTorLT,
     output reg [2:0] IorD, ALUOp, PCSrc, ShiftType,
     output reg [3:0] MemtoReg
 );
@@ -717,7 +717,7 @@ module controladora (
                 ALUOp       = 3'b010;
                 PCSrc       = 1;
                 ALUOutWrite = 0;
-                EQorNE      = 1;
+                EQorNE      = 2'b10;
                 PCWriteCond = 1;
             end
 
@@ -727,7 +727,7 @@ module controladora (
                 ALUOp       = 3'b010;
                 PCSrc       = 1;
                 ALUOutWrite = 0;
-                EQorNE      = 0;
+                EQorNE      = 2'b01;
                 PCWriteCond = 1;
             end
 
@@ -738,7 +738,7 @@ module controladora (
                 ALUOp       = 3'b111;
                 PCSrc       = 1;
                 ALUOutWrite = 0;
-                GTorLT      = 1;
+                GTorLT      = 2'b10;
                 PCWriteCond = 1;
             end
 
@@ -748,7 +748,7 @@ module controladora (
                 ALUOp       = 3'b111;
                 PCSrc       = 1;
                 ALUOutWrite = 0;
-                GTorLT      = 0;
+                GTorLT      = 2'b01;
                 PCWriteCond = 1;
             end
 
