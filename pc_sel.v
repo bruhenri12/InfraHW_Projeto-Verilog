@@ -11,8 +11,8 @@ module pc_sel (
     assign notZero = ~Zero;
     assign notGt = ~Gt;
 
-    mux_2x1_1_1 Mux_EQorNE(EQorNE_Out, EQorNE, Zero, notZero); 
-    mux_2x1_1_1 Mux_GTorLT(GTorLT_Out, GTorLT, Gt, notGt); 
+    mux_2x1_1_1 Mux_EQorNE(EQorNE_Out, EQorNE, notZero, Zero); 
+    mux_2x1_1_1 Mux_GTorLT(GTorLT_Out, GTorLT, notGt, Gt); 
 	 
 
     assign rZeroGt = EQorNE_Out | GTorLT_Out;
