@@ -113,14 +113,17 @@ module controladora (
                 else if((opcode == addi_op) || (opcode == addiu_op))
                     state <= 73; // addi or addiu
                 
-                else if((opcode == beq_op) ||
-                        (opcode == bne_op))
-                    state <= 53; // beq || bne
+                else if(opcode == beq_op)
+                    state <= 53; // beq
 
-                else if((opcode == bgt_op) ||
-                        (opcode == ble_op))
-                    state <= 56; // beq || bne
-                
+                else if(opcode == bne_op)
+                    state <= 54; // bne             
+
+                else if(opcode == bgt_op)
+                    state <= 56; // beq 
+                else if(opcode == ble_op)
+                    state <= 57;
+
 
                 else if(opcode == j_op)
                     state <= 60;
@@ -321,33 +324,19 @@ module controladora (
                     state <= 9;  // addiu
             end
 
-            53: begin
-                if(opcode == beq_op)
-                    state <= 54; // beq
-                else
-                    state <= 55; // bne
+             53: begin
+                state <= 1;
             end 
 
             54: begin
                 state <= 1;
             end
 
-            55: begin
-                state <= 1;
-            end
-
             56: begin
-                if(opcode == bgt_op)
-                    state <= 57; // bgt
-                else
-                    state <= 58; // ble
+                state <= 1;
             end 
 
             57: begin
-                state <= 1;
-            end
-            
-            58: begin
                 state <= 1;
             end
 
@@ -722,39 +711,43 @@ module controladora (
             end
             
             // caue:
-            53: begin: BEQ_OR_BNE
+            53: begin: BEQ
                 ALUSrcA     = 1;
                 ALUSrcB     = 0;
                 ALUOp       = 3'b010;
                 PCSrc       = 1;
                 ALUOutWrite = 0;
-            end
-
-            54: begin: BEQ
                 EQorNE      = 1;
                 PCWriteCond = 1;
             end
 
-            55: begin: BNE
+            54: begin: BNQ
+                ALUSrcA     = 1;
+                ALUSrcB     = 0;
+                ALUOp       = 3'b010;
+                PCSrc       = 1;
+                ALUOutWrite = 0;
                 EQorNE      = 0;
                 PCWriteCond = 1;
             end
 
 
-            56: begin: BGT_OR_BLE
+            56: begin: BGT
                 ALUSrcA     = 1;
                 ALUSrcB     = 0;
                 ALUOp       = 3'b111;
                 PCSrc       = 1;
                 ALUOutWrite = 0;
-            end
-
-            57: begin: BGT
                 GTorLT      = 1;
                 PCWriteCond = 1;
             end
 
-            58: begin: BLE
+            57: begin: BLE
+                LUSrcA     = 1;
+                ALUSrcB     = 0;
+                ALUOp       = 3'b111;
+                PCSrc       = 1;
+                ALUOutWrite = 0;
                 GTorLT      = 0;
                 PCWriteCond = 1;
             end
