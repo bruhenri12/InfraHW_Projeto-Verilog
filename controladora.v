@@ -7,7 +7,7 @@ module controladora (
     output reg [1:0] RegDst, ALUSrcB, ShiftQnt, ShiftReg, EQorNE, GTorLT,
     output reg [2:0] IorD, ALUOp, PCSrc, ShiftType,
     output reg [3:0] MemtoReg,
-    output reg mult_init, mult_stop;
+    output reg mult_init, mult_stop
 );
     
     /*
@@ -808,16 +808,16 @@ module controladora (
 
             62: begin
                 ALUOutWrite = 0;
-                init = 1'b1;
+                mult_init = 1'b1;
                 counter = 33; 
             end
             73: begin
-                init = 1'b0;
+                mult_init = 1'b0;
             end
 
             63: begin
-                HiLoSrc = 1
-                HiLoWrite = 1
+                HiLoSrc = 1;
+                HiLoWrite = 1;
             end
         endcase
     end
