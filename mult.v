@@ -7,7 +7,7 @@ module mult (
 
 parameter nbits = 32;
 
-reg [6:0] counter;
+reg unsigned [5:0] counter;
 reg signed [64:0] A,S,P;
 reg rodando;
 
