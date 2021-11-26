@@ -36,7 +36,7 @@ always @(posedge clk or posedge rst or posedge init or posedge stop) begin
         else if(counter <= 32 && counter >= 1) begin
             if(P[1:0] == 2'b01) 
                 P <= (P + A) >>> 1;
-            else 
+            else if(P[1:0] == 2'b10)
                 P <= (P + S) >>> 1;     
             counter <= counter - 1;
         end
