@@ -6,7 +6,8 @@ module controladora (
                 GLtMux, TwoBytes, Store, DivOrM, HiLoSrc, HiLoWrite, MDRLoad,
     output reg [1:0] RegDst, ALUSrcB, ShiftQnt, ShiftReg, EQorNE, GTorLT,
     output reg [2:0] IorD, ALUOp, PCSrc, ShiftType,
-    output reg [3:0] MemtoReg
+    output reg [3:0] MemtoReg,
+    output reg mult_init, mult_stop;
 );
     
     /*
@@ -141,7 +142,10 @@ module controladora (
                 //rte
                 else if((opcode == op0) && (funct == rte_fun))
                     state <= 52;
-
+		
+                else if((opcode == op0) && (funct == mult_funct))
+                    state <= 62;
+		
                 else // opcode inexistente
                     state <= 11;
             end
@@ -358,6 +362,19 @@ module controladora (
             52: begin 
                 state <= 1;
             end 
+            
+            62: begin
+                state <= 74;
+            end
+
+            74: begin
+                if(counter == 0)
+                    state <= 63;
+            end
+
+            63: begin
+                state <= 1;
+            end            
 
             default: state <= 0;
         endcase
@@ -787,6 +804,20 @@ module controladora (
                 PCSrc = 4;
                 PCWrite = 1;
                 ALUOutWrite = 0;
+            end
+
+            62: begin
+                ALUOutWrite = 0;
+                init = 1'b1;
+                counter = 33; 
+            end
+            73: begin
+                init = 1'b0;
+            end
+
+            63: begin
+                HiLoSrc = 1
+                HiLoWrite = 1
             end
         endcase
     end

@@ -52,6 +52,8 @@ module CPU(
     
     //Div, Mult hi, lo
     wire DivZero, HiLoWrite, DivOrM, HiLoSrc;
+    wire [31:0] booth_out1,booth_out2;
+    wire booth_init, booth_stop;
     
     assign Store_Zero = 32'd0;
     assign Funct = Imediato[5:0];
@@ -66,7 +68,7 @@ module CPU(
                         RegWrite, RegALoad, RegBLoad, ALUSrcA, EPCWrite, ALUOSrc, 
                         ALUOutWrite, GLtMux, TwoBytes, Store, DivOrM, HiLoSrc, 
                         HiLoWrite, MDR, RegDst, ALUSrcB, ShiftQnt, ShiftReg, EQorNE, 
-                        GTorLT, IorD, ALUOp, PCSrc, ShiftType, MemtoReg);
+                        GTorLT, IorD, ALUOp, PCSrc, ShiftType, MemtoReg, booth_init, booth_stop);
 
 
     //Conjuntos de blocos:
@@ -153,7 +155,16 @@ module CPU(
     overwrite_block OverwriteBlock(Store1_Out, Store2_Out, TwoBytes, OW_Out);
 
     //DIV,MULT,HI,LO
-    //Aqui..............
+    mult booth(RegA_Out,RegB_Out,booth_init,booth_stop, clk, rst, booth_out1, booth_out2);
+
+
+    wire [31:0] teste1;
+    mux_2x1_32_32 Mux_HiSrc(HiSrc_out, HiLoSrc, teste1 ,booth_out1);
+    mux_2x1_32_32 Mux_LoSrc(LoSrc_out, HiLoSrc, teste1, booth_out2);
+
+    Registrador Hi(clk, rst, HiLoWrite, HiSrc_out, Hi_Out);
+    Registrador Lo(clk, rst, HiLoWrite, LoSrc_out, Lo_Out);
+
 
 
 endmodule
