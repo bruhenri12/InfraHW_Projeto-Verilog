@@ -53,7 +53,7 @@ module CPU(
     //Div, Mult hi, lo
     wire DivZero, HiLoWrite, DivOrM, HiLoSrc;
     wire [31:0] mult_out1, mult_out2, HiSrc_out, LoSrc_out;
-    wire [31:0] div_out1, div_out2;
+    wire [31:0] div_out1, div_out2, DivOrM1_out, DivOrM2_out;
     wire mult_init, mult_stop;
     wire div_init, div_stop, div_zero;
     

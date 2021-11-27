@@ -464,9 +464,8 @@ module controladora (
 
             99: begin
                 if(div_zero == 1'b1)
-                    counter <= 0;
                     state <= 70;
-                if(counter == 0 && div_zero == 1'b0)
+                else if(counter == 0)
                     state <= 69;
             end
             69: begin
@@ -965,7 +964,7 @@ module controladora (
             end
 
             71: begin
-                memtoreg = 5;
+                MemtoReg = 5;
                 RegWrite = 1;
                 RegDst = 1;
                 ALUOutWrite = 0;
@@ -974,7 +973,7 @@ module controladora (
             64: begin
                 DivOrM = 1;
                 ALUOutWrite = 0;
-                div_init = 1'b0;
+                div_init = 1'b1;
                 counter = 33; 
             end
 
@@ -990,7 +989,7 @@ module controladora (
             end
             
             67: begin
-                MDRLoad = 1
+                MDRLoad = 1;
             end
             
             68: begin
@@ -1005,7 +1004,11 @@ module controladora (
                 HiLoSrc = 0;
                 HiLoWrite = 1;
             end 
+
             99: begin
+                if(div_zero == 1'b1) begin
+                    counter <= 0;
+                end
                 div_init = 1'b0;
             end
 
