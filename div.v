@@ -1,5 +1,5 @@
 module div (
-    input wire [31:0] n,d,
+    input wire [31:0] a,b,
     input wire init,stop,
     input wire clk, rst,
     output reg [31:0] hi,lo,
@@ -10,8 +10,8 @@ module div (
 
 reg [6:0] counter, state;
 reg rodando;
-reg [31:0] q, r, partial;
-reg sinal;
+reg [31:0] n, d, q, r, partial;
+reg equal_signs;
 
 
 
@@ -29,6 +29,9 @@ always @(posedge clk or posedge rst or posedge init or posedge stop) begin
             counter <= 33;
             q <= 0;
             r <= 0;
+            n <= a[31] == 0 ? a : ~(a - 1); // abs of a
+            d <= b[31] == 0 ? b : ~(b - 1); // abs of b
+            equal_signs = a[31] == b[31] ? 1 : 0;
         end
 
     end
@@ -60,9 +63,17 @@ always @(posedge clk or posedge rst or posedge init or posedge stop) begin
         end
         
         else begin
-           hi <= r;
-           lo <= q;
-           rodando <= 1'b0;
+            lo <= q;
+            hi <= r;
+            if(equal_signs == 0) begin
+                if(r == 0) begin
+                    lo <= (~q) + 1;  // negative
+                end else begin
+                    lo <= (~(q+1)) + 1; // plus 1 then negative
+                    hi <= d - r;
+                end
+            end
+            rodando <= 1'b0;
         end
     end
 end
