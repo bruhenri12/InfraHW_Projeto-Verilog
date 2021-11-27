@@ -10,7 +10,7 @@ module div (
 
 reg [6:0] counter, state;
 reg rodando;
-reg [31:0] q,r;
+reg [31:0] q, r, partial;
 reg sinal;
 
 
@@ -49,11 +49,11 @@ always @(posedge clk or posedge rst or posedge init or posedge stop) begin
         end
 
         else if(counter <= 32 && counter >= 1) begin
-            if(d >= r) begin
-                r <= {(r << 1)[31:1], n[counter-1]};
-            end
+            partial = {(r << 1)[31:1], n[counter-1]};
+            if(partial < d)
+                r <= partial;
             else begin
-                r <= {(r << 1)[31:1], n[counter-1]} - d;
+                r <= partial - d;
                 q[counter-1] <= 1'b1;
             end
             counter <= counter - 1;
