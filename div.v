@@ -49,7 +49,7 @@ always @(posedge clk or posedge rst or posedge init or posedge stop) begin
         end
 
         else if(counter <= 32 && counter >= 1) begin
-            if(d >= r) begin
+            if(r < d) begin
                 r <= {(r << 1)[31:1], n[counter-1]};
             end
             else begin
