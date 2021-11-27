@@ -55,7 +55,7 @@ module CPU(
     wire [31:0] mult_out1, mult_out2, HiSrc_out, LoSrc_out;
     wire [31:0] div_out1, div_out2, DivOrM1_out, DivOrM2_out;
     wire mult_init, mult_stop;
-    wire div_init, div_stop, div_zero;
+    wire div_init, div_stop;
     
     assign Store_Zero = 32'd0;
     assign Funct = Imediato[5:0];
@@ -65,12 +65,12 @@ module CPU(
     assign RegB4_0_Out = RegB_Out[4:0];
 
     //Controladora
-    controladora Control(clk, Overflow, rst, Opcode, Funct, PCWriteCond, 
+    controladora Control(clk, Overflow, rst, DivZero, Opcode, Funct, PCWriteCond, 
                         PCWrite, WDSrc, MemRead_Write, IRWrite,
                         RegWrite, RegALoad, RegBLoad, ALUSrcA, EPCWrite, ALUOSrc, 
                         ALUOutWrite, GLtMux, TwoBytes, Store, DivOrM, HiLoSrc, 
                         HiLoWrite, MDR, RegDst, ALUSrcB, ShiftQnt, ShiftReg, EQorNE, 
-                        GTorLT, IorD, ALUOp, PCSrc, ShiftType, MemtoReg, mult_init, mult_stop, div_init, div_stop, div_zero);
+                        GTorLT, IorD, ALUOp, PCSrc, ShiftType, MemtoReg, mult_init, mult_stop, div_init, div_stop);
 
 
     //Conjuntos de blocos:
@@ -167,7 +167,7 @@ module CPU(
 
             // a, b, init, stop, clock, reset, hi, lo, zero 
 
-    div Div(DivOrM1_out, DivOrM2_out, div_init,div_stop, clk, rst, div_out1, div_out2, div_zero);
+    div Div(DivOrM1_out, DivOrM2_out, div_init,div_stop, clk, rst, div_out1, div_out2, DivZero);
 
     mux_2x1_32_32 Mux_HiSrc(HiSrc_out, HiLoSrc, div_out1 ,mult_out1);
     mux_2x1_32_32 Mux_LoSrc(LoSrc_out, HiLoSrc, div_out2, mult_out2);

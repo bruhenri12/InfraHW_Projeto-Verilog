@@ -1,5 +1,5 @@
 module controladora (
-    input wire clk, Overflow, reset,
+    input wire clk, Overflow, reset, div_zero,
     input wire [5:0] opcode, funct,
     output reg PCWriteCond, PCWrite, WDSrc, MemRead_Write, IRWrite,
                 RegWrite, RegALoad, RegBLoad, ALUSrcA, EPCWrite, ALUOSrc, ALUOutWrite,
@@ -7,7 +7,7 @@ module controladora (
     output reg [1:0] RegDst, ALUSrcB, ShiftQnt, ShiftReg, EQorNE, GTorLT,
     output reg [2:0] IorD, ALUOp, PCSrc, ShiftType,
     output reg [3:0] MemtoReg,
-    output reg mult_init, mult_stop, div_init, div_stop, div_zero
+    output reg mult_init, mult_stop, div_init, div_stop
 );
     
     /*
@@ -448,6 +448,7 @@ module controladora (
             64: begin
                 state <= 99;
             end
+
             65: begin
                 state <= 66;
             end
@@ -463,7 +464,7 @@ module controladora (
             end
 
             99: begin
-                if(div_zero == 1'b1)
+                if(div_zero == 1)
                     state <= 70;
                 else if(counter == 0)
                     state <= 69;
@@ -1014,7 +1015,6 @@ module controladora (
 
             70: begin
                 div_init = 1'b0;
-                
                 IorD = 4;
                 MemRead_Write = 0;
                 ALUSrcA = 0;
