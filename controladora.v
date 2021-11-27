@@ -61,9 +61,9 @@ module controladora (
 
 
     reg [7:0] state;
-    // if you want to wait for N cycles, set the counter to N
+    // if you want for N cycles, set the counter to N-1
     // and go to a state where you change the state if the
-    // counter is 0
+    // clock is 0
     reg [6:0] counter;
 
     always @(posedge clk) begin: NEXT_STATE_LOGIC
@@ -285,6 +285,14 @@ module controladora (
                 state <= 1;
             end
 
+            34: begin
+                state <= 35;
+            end
+
+            35: begin
+                state <= 36;
+            end
+
             36: begin
                 state <= 37;
             end
@@ -367,13 +375,13 @@ module controladora (
                 state <= 74;
             end
 
-            63: begin
-                state <= 1;
-            end
-
             74: begin
                 if(counter == 0)
                     state <= 63;
+            end
+
+            63: begin
+                state <= 1;
             end            
 
             default: state <= 0;
@@ -808,17 +816,19 @@ module controladora (
 
             62: begin
                 ALUOutWrite = 0;
-                mult_init = 1'b1;
-                counter = 34; 
+                mult_init = 1;
+                counter = 33; 
             end
-            73: begin
-                mult_init = 1'b0;
+
+            74: begin
+                mult_init = 0;
             end
 
             63: begin
                 HiLoSrc = 1;
                 HiLoWrite = 1;
             end
+            
         endcase
     end
 
