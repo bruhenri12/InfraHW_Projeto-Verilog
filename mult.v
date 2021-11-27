@@ -7,7 +7,8 @@ module mult (
 
 parameter nbits = 32;
 
-reg unsigned [5:0] counter;
+reg [6:0] counter;
+reg signed [31:0] mA;
 reg signed [64:0] A,S,P;
 reg rodando;
 
@@ -15,6 +16,7 @@ always @(posedge clk or posedge rst or posedge init or posedge stop) begin
     if(init) begin
         rodando <= 1;
         counter <= 33;
+        mA <= a;
     end
     if(stop || rst) begin
         rodando <= 1'b0;
@@ -28,7 +30,7 @@ always @(posedge clk or posedge rst or posedge init or posedge stop) begin
     if(rodando) begin
         if(counter == 33) begin
             A <= {a,{33{1'b0}}};
-            S <= {-a, {33{1'b0}}};
+            S <= {~(-mA)+1, {33{1'b0}}};
             P <= {{{32{1'b0}},b},1'b0};
             counter <= counter - 1;
         end
