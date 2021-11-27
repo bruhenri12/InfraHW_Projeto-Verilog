@@ -177,7 +177,7 @@ module controladora (
                 else if((opcode == op0) && (funct == div_funct))
                     state <= 64; //div
 
-                else if((opcode == op0) && (funct == div_funct))
+                else if((opcode == op0) && (funct == divm_fun))
                     state <= 65; //divm
 
                 else // opcode inexistente
@@ -386,7 +386,7 @@ module controladora (
                         state <= 8;  // addi
                 end
                 else
-                    state <= 9;  // addiu
+                    state <= 8;  // addiu
             end
 
             53: begin
