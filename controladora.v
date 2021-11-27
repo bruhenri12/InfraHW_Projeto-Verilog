@@ -61,9 +61,9 @@ module controladora (
 
 
     reg [7:0] state;
-    // if you want for N cycles, set the counter to N-1
+    // if you want to wait for N cycles, set the counter to N
     // and go to a state where you change the state if the
-    // clock is 0
+    // counter is 0
     reg [6:0] counter;
 
     always @(posedge clk) begin: NEXT_STATE_LOGIC
@@ -367,13 +367,13 @@ module controladora (
                 state <= 74;
             end
 
+            63: begin
+                state <= 1;
+            end
+
             74: begin
                 if(counter == 0)
                     state <= 63;
-            end
-
-            63: begin
-                state <= 1;
             end            
 
             default: state <= 0;
