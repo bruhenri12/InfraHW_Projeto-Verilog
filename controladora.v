@@ -16,7 +16,8 @@ module controladora (
      * eduardo: rs
      *
      *
-     * Sáb nov 2 às 15:38 - Cauê: E lá vamos nós.
+     * Sáb nov 20 às 15:38 - Cauê: E lá vamos nós.
+     * Sáb nov 27 às 05:31 - Cauê: Socorro.
     */
 
     parameter op0 = 6'h0;
@@ -38,7 +39,9 @@ module controladora (
               slti_op   = 6'ha;
     
     parameter div_funct  = 6'h1a,
-              mult_funct = 6'h18;
+              mult_funct = 6'h18,
+              mfhi_fun   = 6'h10,
+              mflo_fun   = 6'h12;
     
     parameter jr_funct = 6'h8;
               
@@ -164,6 +167,12 @@ module controladora (
                 else if(opcode == slti_op)
                     state <= 49; // slti
                 
+                else if((opcode == op0) && (funct == mfhi_fun))
+                    state <= 72; //mfhi
+                
+                 else if((opcode == op0) && (funct == mflo_fun))
+                    state <= 71; //mflo
+
                 else // opcode inexistente
                     state <= 11;
             end
@@ -373,7 +382,7 @@ module controladora (
                     state <= 9;  // addiu
             end
 
-             53: begin
+            53: begin
                 state <= 1;
             end 
 
@@ -419,7 +428,15 @@ module controladora (
 
             63: begin
                 state <= 1;
-            end            
+            end  
+
+            71: begin
+                state <= 1;
+            end          
+
+            72 begin
+                state <= 1;
+            end
 
             default: state <= 0;
         endcase
@@ -900,6 +917,20 @@ module controladora (
                 HiLoWrite = 1;
             end
 
+
+            72: begin
+                MemtoReg = 4
+                RegWrite = 1
+                RegDst = 1
+                ALUOutWrite = 0  
+            end
+
+            71: begin
+                memtoreg = 5
+                RegWrite = 1
+                RegDst = 1
+                ALUOutWrite = 0
+            end
         endcase
     end
 
