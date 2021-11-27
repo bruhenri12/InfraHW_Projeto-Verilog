@@ -7,7 +7,7 @@ module controladora (
     output reg [1:0] RegDst, ALUSrcB, ShiftQnt, ShiftReg, EQorNE, GTorLT,
     output reg [2:0] IorD, ALUOp, PCSrc, ShiftType,
     output reg [3:0] MemtoReg,
-    output reg mult_init, mult_stop
+    output reg mult_init, mult_stop, div_init, div_stop, div_zero
 );
     
     /*
@@ -41,7 +41,8 @@ module controladora (
     parameter div_funct  = 6'h1a,
               mult_funct = 6'h18,
               mfhi_fun   = 6'h10,
-              mflo_fun   = 6'h12;
+              mflo_fun   = 6'h12,
+              divm_fun   = 6'h5;
     
     parameter jr_funct = 6'h8;
               
@@ -170,8 +171,14 @@ module controladora (
                 else if((opcode == op0) && (funct == mfhi_fun))
                     state <= 72; //mfhi
                 
-                 else if((opcode == op0) && (funct == mflo_fun))
+                else if((opcode == op0) && (funct == mflo_fun))
                     state <= 71; //mflo
+
+                else if((opcode == op0) && (funct == div_funct))
+                    state <= 64; //div
+
+                else if((opcode == op0) && (funct == div_funct))
+                    state <= 65; //divm
 
                 else // opcode inexistente
                     state <= 11;
@@ -434,8 +441,40 @@ module controladora (
                 state <= 1;
             end          
 
-            72 begin
+            72: begin
                 state <= 1;
+            end
+            
+            64: begin
+                state <= 99;
+            end
+            65: begin
+                state <= 66;
+            end
+
+            66: begin
+                state <= 67;
+            end
+            67: begin
+                state <= 68;
+            end
+            68: begin
+                state <= 99;
+            end
+
+            99: begin
+                if(div_zero == 1'b1)
+                    counter <= 0;
+                    state <= 70;
+                if(counter == 0 && div_zero == 1'b0)
+                    state <= 69;
+            end
+            69: begin
+                state <= 1;      
+            end
+
+            70: begin
+                state <= 12;
             end
 
             default: state <= 0;
@@ -919,18 +958,68 @@ module controladora (
 
 
             72: begin
-                MemtoReg = 4
-                RegWrite = 1
-                RegDst = 1
-                ALUOutWrite = 0  
+                MemtoReg = 4;
+                RegWrite = 1;
+                RegDst = 1;
+                ALUOutWrite = 0;  
             end
 
             71: begin
-                memtoreg = 5
-                RegWrite = 1
-                RegDst = 1
-                ALUOutWrite = 0
+                memtoreg = 5;
+                RegWrite = 1;
+                RegDst = 1;
+                ALUOutWrite = 0;
             end
+
+            64: begin
+                DivOrM = 1;
+                ALUOutWrite = 0;
+                div_init = 1'b0;
+                counter = 33; 
+            end
+
+            65: begin
+                IorD = 5;
+                MemRead_Write = 0;
+                ALUOutWrite = 0;
+            end 
+
+            66: begin
+                IorD = 6;
+                MemRead_Write = 0;
+            end
+            
+            67: begin
+                MDRLoad = 1
+            end
+            
+            68: begin
+                DivOrM = 0;
+                MDRLoad = 0;
+                div_init = 1'b1;
+                counter = 33; 
+            end    
+
+
+            69: begin
+                HiLoSrc = 0;
+                HiLoWrite = 1;
+            end 
+            99: begin
+                div_init = 1'b0;
+            end
+
+            70: begin
+                div_init = 1'b0;
+                
+                IorD = 4;
+                MemRead_Write = 0;
+                ALUSrcA = 0;
+                ALUSrcB = 1;
+                ALUOp = 3'b010;
+                EPCWrite = 1;
+            end
+
         endcase
     end
 

@@ -53,7 +53,9 @@ module CPU(
     //Div, Mult hi, lo
     wire DivZero, HiLoWrite, DivOrM, HiLoSrc;
     wire [31:0] mult_out1, mult_out2, HiSrc_out, LoSrc_out;
+    wire [31:0] div_out1, div_out2;
     wire mult_init, mult_stop;
+    wire div_init, div_stop, div_zero;
     
     assign Store_Zero = 32'd0;
     assign Funct = Imediato[5:0];
@@ -68,7 +70,7 @@ module CPU(
                         RegWrite, RegALoad, RegBLoad, ALUSrcA, EPCWrite, ALUOSrc, 
                         ALUOutWrite, GLtMux, TwoBytes, Store, DivOrM, HiLoSrc, 
                         HiLoWrite, MDR, RegDst, ALUSrcB, ShiftQnt, ShiftReg, EQorNE, 
-                        GTorLT, IorD, ALUOp, PCSrc, ShiftType, MemtoReg, mult_init, mult_stop);
+                        GTorLT, IorD, ALUOp, PCSrc, ShiftType, MemtoReg, mult_init, mult_stop, div_init, div_stop, div_zero);
 
 
     //Conjuntos de blocos:
@@ -156,11 +158,19 @@ module CPU(
 
     //DIV,MULT,HI,LO
     mult Mult(RegA_Out,RegB_Out,mult_init,mult_stop, clk, rst, mult_out1, mult_out2);
-
-
+    
+    
     wire [31:0] teste1;
-    mux_2x1_32_32 Mux_HiSrc(HiSrc_out, HiLoSrc, teste1 ,mult_out1);
-    mux_2x1_32_32 Mux_LoSrc(LoSrc_out, HiLoSrc, teste1, mult_out2);
+    
+    mux_2x1_32_32 Mux_DivOrM1(DivOrM1_out, DivOrM, MDR_Out, RegA_Out);
+    mux_2x1_32_32 Mux_DivOrM2(DivOrM2_out, DivOrM, Mem_Out, RegB_Out);
+
+            // a, b, init, stop, clock, reset, hi, lo, zero 
+
+    div Div(DivOrM1_out, DivOrM2_out, div_init,div_stop, clk, rst, div_out1, div_out2, div_zero);
+
+    mux_2x1_32_32 Mux_HiSrc(HiSrc_out, HiLoSrc, div_out1 ,mult_out1);
+    mux_2x1_32_32 Mux_LoSrc(LoSrc_out, HiLoSrc, div_out2, mult_out2);
 
     Registrador Hi(clk, rst, HiLoWrite, HiSrc_out, Hi_Out);
     Registrador Lo(clk, rst, HiLoWrite, LoSrc_out, Lo_Out);
