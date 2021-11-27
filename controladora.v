@@ -31,8 +31,11 @@ module controladora (
 
     parameter add_funct = 6'h20,
               and_funct = 6'h24,
+              sub_funct = 6'h22,
+              slt_funct = 6'h2a,
               addi_op   = 6'h8,
-              addiu_op  = 6'h9;
+              addiu_op  = 6'h9,
+              slti_op   = 6'ha;
     
     parameter div_funct  = 6'h1a,
               mult_funct = 6'h18;
@@ -123,15 +126,14 @@ module controladora (
                 else if(opcode == bgt_op)
                     state <= 56; // beq 
                 else if(opcode == ble_op)
-                    state <= 57;
-
+                    state <= 57; // ble
 
                 else if(opcode == j_op)
-                    state <= 60;
+                    state <= 60; // j
 
                 else if(opcode == jal_op)
-                    state <= 59;
-
+                    state <= 59; // jal
+                
                 //jr
                 else if((opcode == op0) && (funct == jr_fun))
                     state <= 61;
@@ -142,10 +144,26 @@ module controladora (
                 //rte
                 else if((opcode == op0) && (funct == rte_fun))
                     state <= 52;
-		
+
+                //mult
                 else if((opcode == op0) && (funct == mult_funct))
                     state <= 62;
-		
+                
+                //and
+                else if((opcode == op0) && (funct == and_funct))
+                    state <= 10;
+
+                //sub
+                else if((opcode == op0) && (funct == sub_funct))
+                    state <= 44;
+
+                //slt
+                else if((opcode == op0) && (funct == slt_funct))
+                    state <= 47;
+
+                else if(opcode == slti_op)
+                    state <= 49; // slti
+                
                 else // opcode inexistente
                     state <= 11;
             end
@@ -167,6 +185,10 @@ module controladora (
 
             8: begin: GO_TO_START_8
                 state <= 1;
+            end
+
+            10: begin
+                state <= 6;
             end
 
             11: begin: GO_TO_TRATAMENTO_DE_EXCECAO_PADRAO_11
@@ -323,6 +345,21 @@ module controladora (
 
             43: begin: GO_TO_START_28
                 state <= 1;
+            end
+
+            44: begin
+                if(Overflow)
+                    state <= 7;  // overflow
+                else
+                    state <= 6;  // continue sub
+            end
+
+            47: begin
+                state <= 6;
+            end
+
+            49: begin
+                state <= 8;
             end
 
             73: begin: GO_TO_START_73
@@ -526,6 +563,14 @@ module controladora (
                 RegWrite    = 1;
             end
 
+            10: begin: AND
+                ALUSrcA      = 1;
+                ALUSrcB      = 0;
+                ALUOp        = 3'b011;
+                ALUOSrc      = 0;
+                ALUOutWrite  = 1;
+            end
+
             11: begin: OPCODE_INEXISTENTE
                 IorD           = 2;
                 MemRead_Write  = 0;
@@ -664,9 +709,9 @@ module controladora (
             end
 
             33: begin: SLL_SRA_SRL_SLLV_SRAV_END
-                RegDst = 2'b01;
-                MemtoReg = 4'b0011;
-                RegWrite = 1;
+                RegDst      = 2'b01;
+                MemtoReg    = 4'b0011;
+                RegWrite    = 1;
             end
 
             34: begin: SRAM_START_34
@@ -718,13 +763,39 @@ module controladora (
             end
 
             42: begin: LUI_SELECTION
-                ShiftType = 3'b010;
+                ShiftType   = 3'b010;
             end
 
             43: begin: SRAM_LUI_END
-                RegDst = 2'b00;
-                MemtoReg = 4'b0011;
-                RegWrite = 1;
+                RegDst      = 2'b00;
+                MemtoReg    = 4'b0011;
+                RegWrite    = 1;
+            end
+
+            44: begin: SUB
+                ALUSrcA     = 1;
+                ALUSrcB     = 0;
+                ALUOp       = 3'b010;
+                ALUOSrc     = 0;
+                ALUOutWrite = 1;
+            end
+
+            47: begin: SLT
+                ALUSrcA     = 1;
+                ALUSrcB     = 0;
+                ALUOp       = 3'b111;
+                GLtMux      = 0;
+                ALUOSrc     = 1;
+                ALUOutWrite = 1;
+            end
+
+            49: begin: SLTI
+                ALUSrcA     = 1;
+                ALUSrcB     = 2;
+                ALUOp       = 3'b111;
+                GLtMux      = 0;
+                ALUOSrc     = 1;
+                ALUOutWrite = 1;
             end
 
             73: begin: ADDI_OR_ADDIU
@@ -828,7 +899,7 @@ module controladora (
                 HiLoSrc = 1;
                 HiLoWrite = 1;
             end
-            
+
         endcase
     end
 
