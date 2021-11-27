@@ -10,7 +10,7 @@ module div (
 
 reg [6:0] counter, state;
 reg rodando;
-reg signed [31:0] q,r;
+reg [31:0] q,r;
 reg sinal;
 
 
