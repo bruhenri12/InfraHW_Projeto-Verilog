@@ -1,5 +1,5 @@
 module div (
-    input wire [31:0] a,b,
+    input wire [31:0] n,d,
     input wire init,stop,
     input wire clk, rst,
     output reg [31:0] hi,lo,
@@ -17,7 +17,7 @@ reg sinal;
 
 always @(posedge clk or posedge rst or posedge init or posedge stop) begin
     if(init) begin
-        if(b == 0) 
+        if(d == 0) 
             divzero <= 1;
             q <= 0;
             r <= 0;
@@ -49,12 +49,11 @@ always @(posedge clk or posedge rst or posedge init or posedge stop) begin
         end
 
         else if(counter <= 32 && counter >= 1) begin
-            if(q >= r) begin
-                r <= {(r << 1)[31:1], a[counter-1]};
-                state <= 1;
+            if(d < r) begin
+                r <= {(r << 1)[31:1], n[counter-1]};
             end
             else begin
-                r <= {(r << 1)[31:1], a[counter-1]} - d;
+                r <= {(r << 1)[31:1], n[counter-1]} - d;
                 q[counter-1] <= 1'b1;
             end
             counter <= counter - 1;
