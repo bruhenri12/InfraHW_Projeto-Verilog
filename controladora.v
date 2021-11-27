@@ -809,7 +809,7 @@ module controladora (
             62: begin
                 ALUOutWrite = 0;
                 mult_init = 1'b1;
-                counter = 33; 
+                counter = 34; 
             end
             73: begin
                 mult_init = 1'b0;
